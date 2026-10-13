@@ -7,7 +7,7 @@ import {
   DIFFICULTY_VALUES,
 } from "../codes/types";
 import { DifficultyBadge, EgBadge } from "./Badges";
-import { FIG_COP_URL } from "../lib/fig-links";
+import { copLink, elementRef } from "../lib/fig-links";
 import { buildSearchIndex, parseQuery, scoreEntry } from "../lib/skill-search";
 
 interface Props {
@@ -198,7 +198,7 @@ function SkillCard({
           <EgBadge eg={skill.elementGroup} />
           <DifficultyBadge difficulty={skill.difficulty} numericValue={skill.numericValue} />
           <span className="ml-auto text-[11px] font-mono text-slate-500">
-            {skill.codeIdentificationNumber}
+            {elementRef(skill)}
           </span>
         </div>
         <div className="px-3 py-2 flex-1">
@@ -213,18 +213,21 @@ function SkillCard({
           {skill.notes && <p className="text-xs text-slate-500 mt-1">{skill.notes}</p>}
         </div>
       </button>
-      <footer className="px-3 py-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+      <footer className="px-3 py-2 border-t border-slate-800 flex items-center justify-between gap-2 text-[11px] text-slate-500 font-mono">
         <a
-          href={FIG_COP_URL}
+          href={copLink(skill)}
           target="_blank"
           rel="noopener noreferrer"
           className="font-sans text-sky-500/80 hover:text-sky-300 underline underline-offset-2"
         >
           Official FIG Code of Points
+          {skill.pageRef !== undefined && (
+            <span className="font-mono whitespace-nowrap"> · CoP p.&nbsp;{skill.pageRef}</span>
+          )}
         </a>
         <button
           onClick={() => onPick(skill)}
-          className="group-hover:text-sky-300 transition-colors"
+          className="shrink-0 whitespace-nowrap group-hover:text-sky-300 transition-colors"
         >
           + add to routine
         </button>

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import type { Skill } from "../codes/types";
 import { DIFFICULTY_VALUES } from "../codes/types";
 import { EgBadge, DifficultyBadge } from "./Badges";
-import { FIG_COP_URL } from "../lib/fig-links";
+import { copLink, elementRef } from "../lib/fig-links";
 
 interface Props {
   skill: Skill;
@@ -45,8 +45,8 @@ export function SkillDetail({ skill, onClose }: Props) {
           <EgBadge eg={skill.elementGroup} />
           <DifficultyBadge difficulty={skill.difficulty} numericValue={skill.numericValue} />
           <span className="text-xs font-mono text-slate-500">
-            {skill.codeIdentificationNumber}
-            {skill.pageRef !== undefined && ` · CoP p.${skill.pageRef}`}
+            {elementRef(skill)}
+            {skill.pageRef !== undefined && ` · CoP p. ${skill.pageRef}`}
           </span>
         </div>
 
@@ -71,12 +71,12 @@ export function SkillDetail({ skill, onClose }: Props) {
         {skill.notes && <p className="mt-3 text-xs text-slate-400">{skill.notes}</p>}
 
         <a
-          href={FIG_COP_URL}
+          href={copLink(skill)}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4 inline-block text-xs text-sky-400 hover:text-sky-300 underline underline-offset-2"
         >
-          Official FIG Code of Points ↗
+          Official FIG Code of Points{skill.pageRef !== undefined && ` · CoP p. ${skill.pageRef}`} ↗
         </a>
       </div>
     </div>
