@@ -11,10 +11,13 @@ import { CompulsoryRoutineView } from "./components/CompulsoryRoutineView";
 import { useToast } from "./components/Toast";
 import {
   loadCustomSkills,
+  loadDrafts,
   loadRoutines,
   saveCustomSkills,
+  saveDrafts,
   saveRoutines,
 } from "./storage/routines";
+import type { DraftEntry } from "./storage/routines";
 import { uid } from "./lib/uid";
 
 const DEFAULT_CODE = ALL_CODES[0]; // FIG 2025–2028 — only code with an implemented rules engine
@@ -41,12 +44,45 @@ export default function App() {
   const [customSkills, setCustomSkills] = useState<Skill[]>(() => loadCustomSkills());
   const [currentRoutineId, setCurrentRoutineId] = useState<string | null>(null);
   const [draft, setDraft] = useState<Routine>(() => makeEmptyRoutine(DEFAULT_CODE.id, "FX"));
+  const [drafts, setDrafts] = useState<Record<string, DraftEntry>>(() => loadDrafts());
   const [showPicker, setShowPicker] = useState(false);
   const [showCustomForm, setShowCustomForm] = useState(false);
   const { notify } = useToast();
 
   useEffect(() => saveRoutines(routines), [routines]);
   useEffect(() => saveCustomSkills(customSkills), [customSkills]);
+  useEffect(() => saveDrafts(drafts), [drafts]);
+
+  // Continuously persist the working draft, keyed by code+event, so switching
+  // code/event/home or closing the tab never silently loses in-progress work.
+  // Empty, unsaved drafts are pruned so they don't accumulate.
+  useEffect(() => {
+    const key = `${codeId}:${event}`;
+    setDrafts((prev) => {
+      const isEmpty = draft.skills.length === 0 && currentRoutineId === null;
+      if (isEmpty) {
+        if (!(key in prev)) return prev;
+        const next = { ...prev };
+        delete next[key];
+        return next;
+      }
+      const existing = prev[key];
+      if (
+        existing &&
+        existing.currentRoutineId === currentRoutineId &&
+        JSON.stringify(existing.draft) === JSON.stringify(draft)
+      ) {
+        return prev;
+      }
+      return { ...prev, [key]: { draft, currentRoutineId } };
+    });
+  }, [draft, currentRoutineId, codeId, event]);
+
+  // Restore the persisted draft for a code+event, or start a fresh empty one.
+  const restoreDraft = (cId: string, e: GymEvent): DraftEntry => {
+    const entry = drafts[`${cId}:${e}`];
+    return entry ?? { draft: makeEmptyRoutine(cId, e), currentRoutineId: null };
+  };
 
   const catalog = useMemo(() => {
     const base = code.getSkillCatalog(event);
@@ -74,8 +110,9 @@ export default function App() {
 
   const handleBuildEvent = (e: GymEvent) => {
     setEvent(e);
-    setDraft(makeEmptyRoutine(code.id, e));
-    setCurrentRoutineId(null);
+    const entry = restoreDraft(code.id, e);
+    setDraft(entry.draft);
+    setCurrentRoutineId(entry.currentRoutineId);
     setView("build");
   };
 
@@ -90,8 +127,9 @@ export default function App() {
 
   const handleSelectEvent = (e: GymEvent) => {
     setEvent(e);
-    setDraft(makeEmptyRoutine(code.id, e));
-    setCurrentRoutineId(null);
+    const entry = restoreDraft(code.id, e);
+    setDraft(entry.draft);
+    setCurrentRoutineId(entry.currentRoutineId);
   };
 
   const handlePickSkill = (skill: Skill) => {
@@ -150,18 +188,30 @@ export default function App() {
       return;
     }
     setCodeId(id);
-    setDraft(makeEmptyRoutine(id, event));
-    setCurrentRoutineId(null);
+    const entry = restoreDraft(id, event);
+    setDraft(entry.draft);
+    setCurrentRoutineId(entry.currentRoutineId);
     notify(`Now using ${next.shortName}`, "info");
   };
 
   const handleDelete = () => {
     if (!currentRoutineId) return;
-    if (!confirm("Delete this saved routine?")) return;
-    const name = draft.name;
-    setRoutines((prev) => prev.filter((r) => r.id !== currentRoutineId));
+    const removed = routines.find((r) => r.id === currentRoutineId);
+    if (!removed) return;
+    setRoutines((prev) => prev.filter((r) => r.id !== removed.id));
     handleNew();
-    notify(`Deleted “${name}”`, "info");
+    // No native confirm — the delete is immediately reversible from the toast.
+    notify(`Deleted “${removed.name}”`, "info", {
+      label: "Undo",
+      onAction: () => {
+        setRoutines((prev) =>
+          prev.some((r) => r.id === removed.id) ? prev : [...prev, removed],
+        );
+        setEvent(removed.event);
+        setDraft(removed);
+        setCurrentRoutineId(removed.id);
+      },
+    });
   };
 
   const isDirty =

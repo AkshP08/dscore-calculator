@@ -1,11 +1,11 @@
 // Full-screen text detail modal for a skill. Triggered by clicking a skill in
 // the routine list.
 
-import { useEffect } from "react";
 import type { Skill } from "../codes/types";
 import { DIFFICULTY_VALUES } from "../codes/types";
 import { EgBadge, DifficultyBadge } from "./Badges";
 import { copLink, elementRef } from "../lib/fig-links";
+import { useDialog } from "../lib/useDialog";
 
 interface Props {
   skill: Skill;
@@ -13,14 +13,7 @@ interface Props {
 }
 
 export function SkillDetail({ skill, onClose }: Props) {
-  // ESC to close.
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  const dialogRef = useDialog<HTMLDivElement>(onClose);
 
   const value = skill.numericValue ?? DIFFICULTY_VALUES[skill.difficulty];
 
@@ -30,7 +23,12 @@ export function SkillDetail({ skill, onClose }: Props) {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-5 shadow-2xl"
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={skill.name}
+        tabIndex={-1}
+        className="relative w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-5 shadow-2xl outline-none"
         onClick={(e) => e.stopPropagation()}
       >
         <button
