@@ -15,4 +15,8 @@ cop-pages-local/
 .env.*
 *.tsbuildinfo
 .netlify
-.claude/settings.local.json
+.claude/
+
+# Impeccable per-machine local state (shared config.json/design.json stay tracked)
+.impeccable/config.local.json
+.impeccable/hook.cache.json
