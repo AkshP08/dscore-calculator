@@ -2,8 +2,7 @@ import { useMemo, useState } from "react";
 import type { Routine, RoutineSkill, ScoreBreakdown, Skill } from "../codes/types";
 import { DifficultyBadge, EgStripe } from "./Badges";
 import { uid } from "../lib/uid";
-import { ImageZoom } from "./ImageZoom";
-import { resolveSkillImage } from "../lib/skill-image";
+import { SkillDetail } from "./SkillDetail";
 
 interface Props {
   routine: Routine;
@@ -173,7 +172,7 @@ export function RoutineBuilder({
                 <button
                   onClick={() => setZoomSkill(skill)}
                   className="flex-1 min-w-0 text-left hover:bg-slate-800/40 rounded px-1 -mx-1 transition-colors"
-                  title="View diagram"
+                  title="View skill details"
                 >
                   <div className="text-sm leading-tight text-slate-100 truncate">
                     {skill.name}
@@ -217,9 +216,8 @@ export function RoutineBuilder({
       </button>
 
       {zoomSkill && (
-        <ImageZoom
+        <SkillDetail
           skill={zoomSkill}
-          src={resolveSkillImage(zoomSkill)}
           onClose={() => setZoomSkill(null)}
         />
       )}

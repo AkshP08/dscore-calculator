@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
 # Renders pages from the FIG 2025–2028 Code of Points PDF to PNG files in
-# public/images/cop-pages/. The SkillCard component looks for these as the
-# fallback diagram when no per-skill crop exists in public/images/skills/.
+# cop-pages-local/ for local reference only. They are deliberately kept out of
+# public/ so the deployed site serves nothing copied from the FIG PDF.
 #
 # Usage:
 #   ./scripts/extract-cop-pages.sh           # extracts referenced pages only
@@ -14,7 +14,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-OUT_DIR="public/images/cop-pages"
+OUT_DIR="cop-pages-local"  # outside public/ so nothing from the PDF is deployed
 RESOLUTION=120  # DPI; bump to 150 for higher quality, lower for smaller files
 
 # Auto-detect a PDF in the project root. Prefer `cop.pdf` if it exists,
