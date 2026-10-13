@@ -180,9 +180,9 @@ export function RoutineBuilder({
                       fires under touch, so the up/down buttons are the real
                       reorder path for phones and keyboards. */}
                   <span
-                    className="drag-handle hidden [@media(pointer:fine)]:flex items-center text-slate-500 hover:text-slate-300 select-none"
+                    className="drag-handle hidden [@media(pointer:fine)]:flex items-center text-slate-400 hover:text-slate-200 select-none"
                     title="Drag to reorder"
-                    aria-label="Drag handle"
+                    aria-hidden="true"
                   >
                     <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
                       <circle cx="9" cy="6" r="1.4" />
@@ -199,7 +199,7 @@ export function RoutineBuilder({
                     disabled={i === 0}
                     aria-label={`Move ${skill.name} up`}
                     title="Move up"
-                    className="grid place-items-center rounded text-slate-500 hover:text-slate-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors min-w-[24px] [@media(pointer:coarse)]:min-w-[44px] [@media(pointer:coarse)]:min-h-[44px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500/70"
+                    className="grid place-items-center rounded text-slate-400 hover:text-slate-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors min-w-[24px] [@media(pointer:coarse)]:min-w-[44px] [@media(pointer:coarse)]:min-h-[44px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500/70"
                   >
                     <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
                       <path d="M6 15l6-6 6 6" />
@@ -211,7 +211,7 @@ export function RoutineBuilder({
                     disabled={i === routine.skills.length - 1}
                     aria-label={`Move ${skill.name} down`}
                     title="Move down"
-                    className="grid place-items-center rounded text-slate-500 hover:text-slate-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors min-w-[24px] [@media(pointer:coarse)]:min-w-[44px] [@media(pointer:coarse)]:min-h-[44px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500/70"
+                    className="grid place-items-center rounded text-slate-400 hover:text-slate-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors min-w-[24px] [@media(pointer:coarse)]:min-w-[44px] [@media(pointer:coarse)]:min-h-[44px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500/70"
                   >
                     <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
                       <path d="M6 9l6 6 6-6" />
@@ -250,7 +250,7 @@ export function RoutineBuilder({
                 </button>
                 <button
                   onClick={() => remove(i)}
-                  className="grid place-items-center self-stretch rounded text-slate-500 hover:text-rose-300 transition-colors min-w-[28px] [@media(pointer:coarse)]:min-w-[44px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-rose-500/60"
+                  className="grid place-items-center self-stretch rounded text-slate-400 hover:text-rose-300 transition-colors min-w-[28px] [@media(pointer:coarse)]:min-w-[44px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-rose-500/60"
                   title="Remove skill"
                   aria-label={`Remove ${skill.name}`}
                 >

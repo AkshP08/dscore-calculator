@@ -13,9 +13,9 @@ colors:
   text-bright: "#cbd5e1"      # slate-300 — emphasised body inside dense rows
   text-primary: "#f1f5f9"     # slate-100 — primary foreground, headings, values
   # — Primary signal (sky) —
-  signal: "#38bdf8"           # sky-400 — primary interactive accent, focus rings, radial glow
-  signal-bright: "#7dd3fc"    # sky-300 — active/hover accent text
-  signal-pale: "#bae6fd"      # sky-200 — gradient-text terminus on hero numbers
+  signal: "#38bdf8"           # sky-400 — primary interactive accent, focus rings, CTA
+  signal-bright: "#7dd3fc"    # sky-300 — active/hover accent text, SV change flash
+  signal-pale: "#bae6fd"      # sky-200 — reserved for pale gauge accents
   # — Semantic: positive (emerald) —
   positive: "#10b981"         # emerald-500 — progress fill, connection awarded
   positive-bright: "#34d399"  # emerald-400 — progress fill terminus
@@ -29,7 +29,7 @@ colors:
   danger-text: "#fda4af"      # rose-300 — delete-button text, error text
   danger-deep: "#881337"      # rose-900 — delete-button fill (at 60% alpha)
   # — Secondary accent (violet) —
-  violet: "#8b5cf6"           # violet-500 — paired with signal in hero gradients; PB identity
+  violet: "#8b5cf6"           # violet-500 — Parallel Bars identity (no longer in the hero panel)
   # — Element-group / cross-event hue (cyan) —
   cyan: "#06b6d4"             # cyan-500 — Element Group II; HB identity base
   # — Event identity accents (the 300-level "lit apparatus" colors) —
@@ -170,16 +170,15 @@ slate) is the primary way surfaces and states are built, not solid fills.
 
 ### Primary
 - **Signal Sky** (#38bdf8, sky-400): The one interactive accent. Focus rings, active Code-of-Points
-  selection, the "Add skill" hover state, the home hero's primary CTA (sky-500), and the Start Value
-  panel's background gradient. Used on a small fraction of any screen — that rarity is the point.
+  selection, the "Add skill" hover state, and the home hero's primary CTA (sky-500). Used on a small
+  fraction of any screen — that rarity is the point.
 - **Signal Bright** (#7dd3fc, sky-300): Hover accent text and the brief highlight flash when the
   Start Value updates (sky-300 settling to slate-100). **Signal Pale** (#bae6fd, sky-200): held in
-  reserve for pale gradient/gauge accents.
+  reserve for pale gauge accents.
 
 ### Secondary
-- **Violet** (#8b5cf6, violet-500): The partner to Signal in the Start Value panel's background
-  gradient (`sky-600/15 → slate-900 → violet-700/15`). Also the Parallel Bars identity hue. Never
-  used alone as an accent — it exists to give the hero panel depth.
+- **Violet** (#8b5cf6, violet-500): The Parallel Bars identity hue. No longer used in the Start
+  Value panel (its gradient was flattened to slate); never used alone as a decorative accent.
 
 ### Tertiary
 - **Cyan** (#06b6d4, cyan-500): Element Group II and the Horizontal Bar identity base. The one hue
@@ -320,9 +319,9 @@ stroke (often at alpha) outlines almost every surface, giving the flat panels th
 absence of shadow.
 
 Two recurring signature silhouettes: the **element-group stripe**, a 1.5px full-height rounded bar
-in the group's color running down the left edge of each routine row; and the **gradient hero
-panel**, a `rounded-xl` card washed with a `sky → slate → violet` diagonal gradient plus an inset
-radial highlight, used wherever the Start Value is the subject.
+in the group's color running down the left edge of each routine row; and the **hero Start Value
+panel**, a flat `rounded-xl` slate card (slate-900/80 on an emphasis slate-700 border) whose weight
+comes entirely from the large tabular readout inside it — no gradient, no radial wash.
 
 **The Hairline-Border Rule.** Every panel gets a 1px border (slate-800 at rest, slate-700 for
 emphasis, a semantic hue at alpha for state). Because the system is shadowless at rest, the border
@@ -352,11 +351,11 @@ emphasis, a semantic hue at alpha for state). Because the system is shadowless a
 
 ### Cards / Containers
 - **Corner Style:** `rounded-xl` (12px) for panels, `rounded-lg` (8px) for list rows and dense cards.
-- **Background:** `surface` (slate-900) at 40–80% alpha over the canvas; hero panels use the
-  `sky/slate/violet` gradient.
+- **Background:** `surface` (slate-900) at 40–80% alpha over the canvas; the hero Start Value panel
+  is the same flat slate at `/80`, distinguished by its emphasis border and the size of its readout.
 - **Shadow Strategy:** Flat at rest (see Elevation). Interactive cards lift on hover.
-- **Border:** Always present — `slate-800` hairline at rest, `white/10` on gradient hero panels,
-  a semantic hue at alpha for stateful cards (`amber-700/40` warnings, `emerald-800/40` bonuses).
+- **Border:** Always present — `slate-800` hairline at rest, `slate-700` on the hero Start Value
+  panel, a semantic hue at alpha for stateful cards (`amber-700/40` warnings, `emerald-800/40` bonuses).
 - **Internal Padding:** `p-4`/`p-5` (16–20px) for panels, `px-2 py-1.5` for dense rows.
 
 ### Inputs / Fields
@@ -377,12 +376,13 @@ emphasis, a semantic hue at alpha for state). Because the system is shadowless a
   two-letter abbreviation.
 
 ### Signature: The Start Value Panel
-The product's hero. A `rounded-xl` card with a diagonal `sky-600/15 → slate-900/80 → violet-700/15`
-gradient and an inset `radial-gradient` highlight at 30%/20%. Inside: a mono uppercase
-`tracking-[0.15em]` "START VALUE" eyebrow, then the score at `text-6xl` bold `tabular-nums` in
-**solid `slate-100`** (no gradient), which updates instantly and flashes a brief sky highlight
-(`sv-flash`, 240ms) on change, over a three-column breakdown of Difficulty / EG bonus / Connection.
-The panel's background gradient and inset highlight remain; only the number is solid.
+The product's hero. A **flat `rounded-xl` slate card** — `bg-slate-900/80` on an emphasis
+`slate-700` border, no gradient and no radial wash. Inside: a mono uppercase `tracking-[0.15em]`
+"START VALUE" eyebrow, then the score at `text-6xl` bold `tabular-nums` in **solid `slate-100`**,
+which updates instantly and flashes a brief sky highlight (`sv-flash`, 240ms) on change, over a
+three-column breakdown of Difficulty / EG bonus / Connection. The panel is the hero purely through
+the size and weight of its readout — emphasis never comes from a gradient (the Judge's Console
+North Star).
 
 On phones (below `md`) the fixed rail is replaced by a **compact sticky bottom bar** carrying the
 same solid SV readout plus a tiny `D · EG · CV` breakdown, pinned above the safe-area inset so the
@@ -425,8 +425,8 @@ atomic data chips reused across picker, builder, and detail views.
   numbers; keep prose and names in the sans. Data is mono, prose is sans — always.
 - **Do** build surfaces by compositing color over slate at low alpha (`/10`–`/60`), and give every
   panel a 1px border since the system is shadowless at rest.
-- **Do** make the Start Value the single hero of any screen it appears on — large, tabular,
-  gradient-clipped, animated on change.
+- **Do** make the Start Value the single hero of any screen it appears on — large, tabular, solid
+  high-contrast type, with a brief sky flash on change. Emphasis from size and weight, never gradient.
 - **Do** stack the builder's two panes to one column below `md`; the breakdown goes under the
   builder, never into a cramped phone-width split.
 
@@ -434,8 +434,8 @@ atomic data chips reused across picker, builder, and detail views.
 - **Don't** add resting shadows. Depth at rest is tonal layering; shadow means overlay or hover.
 - **Don't** recolor a difficulty badge off the A→J heat scale, or restyle an event away from its
   assigned identity hue.
-- **Don't** use color decoratively — no gradient-as-ornament beyond the established hero/radial
-  washes, no colored surface that isn't signalling state or identity.
+- **Don't** use color decoratively — no gradient-as-ornament anywhere (the ground and the hero
+  panel are both flat slate), no colored surface that isn't signalling state or identity.
 - **Don't** introduce a web font or set data in the proportional sans; the system/mono split is
   the typographic identity.
 - **Don't** soften the product toward a friendly consumer-fitness look (pastel fills, big rounded

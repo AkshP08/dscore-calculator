@@ -109,19 +109,27 @@ export function SkillPicker({ catalog, isVault, onPick, onClose, onOpenCustom }:
                 <EgBadge eg={eg} />
               </button>
             ))}
-            <span className="text-xs text-slate-400 font-mono ml-3 mr-1">DV:</span>
-            <FilterChip active={diffFilter === null} onClick={() => setDiffFilter(null)}>
-              all
-            </FilterChip>
-            {availableDifficulties.map((d) => (
-              <FilterChip
-                key={d}
-                active={diffFilter === d}
-                onClick={() => setDiffFilter(diffFilter === d ? null : d)}
+            {/* Difficulty collapses to a single control — the full A–J chip row
+                was up to 11 wrapping targets, unusable one-handed. The search
+                box still accepts a bare letter or code (e.g. "E", "III.41"). */}
+            <label className="ml-3 inline-flex items-center gap-1.5 text-xs text-slate-400 font-mono">
+              DV:
+              <select
+                value={diffFilter ?? ""}
+                onChange={(e) =>
+                  setDiffFilter(e.target.value ? (e.target.value as Difficulty) : null)
+                }
+                aria-label="Filter by difficulty value"
+                className={`rounded bg-slate-800 px-2 py-1 font-mono text-xs [@media(pointer:coarse)]:min-h-[44px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500/70 ${diffFilter ? "text-slate-100" : "text-slate-400"}`}
               >
-                {d}
-              </FilterChip>
-            ))}
+                <option value="">all</option>
+                {availableDifficulties.map((d) => (
+                  <option key={d} value={d}>
+                    {d}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
         </div>
 
