@@ -34,7 +34,7 @@ export function SkillDetail({ skill, onClose }: Props) {
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-3 right-4 text-slate-400 hover:text-white text-xl leading-none"
+          className="absolute top-3 right-4 text-slate-400 hover:text-slate-100 text-xl leading-none rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50"
         >
           ✕
         </button>

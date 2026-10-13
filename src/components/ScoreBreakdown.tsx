@@ -24,25 +24,23 @@ export function ScoreBreakdownView({ event, breakdown, catalog }: Props) {
 
   return (
     <aside className="w-full md:w-96 shrink-0 space-y-3">
-      {/* Headline SV card */}
-      <div className="rounded-xl border border-white/10 bg-gradient-to-br from-sky-600/15 via-slate-900/80 to-violet-700/15 p-5 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(at_30%_20%,rgba(56,189,248,0.15),transparent_60%)] pointer-events-none" />
-        <div className="relative">
-          <div className="text-xs uppercase tracking-[0.15em] text-slate-400 font-mono">
-            Start Value
-          </div>
-          <div
-            key={animKey}
-            className="text-6xl font-bold tabular-nums text-slate-100 mt-1 animate-sv"
-          >
-            {breakdown.startValue.toFixed(1)}
-          </div>
-          <dl className="mt-4 grid grid-cols-3 gap-2 text-center">
-            <Stat label="Difficulty" value={breakdown.difficultyValue} tone="slate" />
-            {!isVault && <Stat label="EG bonus" value={breakdown.elementGroupBonus} tone="emerald" />}
-            {!isVault && <Stat label="Connection" value={breakdown.connectionValue} tone="sky" />}
-          </dl>
+      {/* Headline SV card — flat slate per the Judge's Console North Star:
+          emphasis comes from the readout's size and weight, not a gradient. */}
+      <div className="rounded-xl border border-slate-700 bg-slate-900/80 p-5">
+        <div className="text-xs uppercase tracking-[0.15em] text-slate-400 font-mono">
+          Start Value
         </div>
+        <div
+          key={animKey}
+          className="text-6xl font-bold tabular-nums text-slate-100 mt-1 animate-sv"
+        >
+          {breakdown.startValue.toFixed(1)}
+        </div>
+        <dl className="mt-4 grid grid-cols-3 gap-2 text-center">
+          <Stat label="Difficulty" value={breakdown.difficultyValue} tone="slate" />
+          {!isVault && <Stat label="EG bonus" value={breakdown.elementGroupBonus} tone="emerald" />}
+          {!isVault && <Stat label="Connection" value={breakdown.connectionValue} tone="sky" />}
+        </dl>
       </div>
 
       {/* Element groups */}
