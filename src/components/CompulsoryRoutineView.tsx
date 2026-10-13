@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { CompulsoryPart, CompulsoryRoutine } from "../codes/types";
 import { MobileScoreBar } from "./ScoreBreakdown";
+import { liveSV as computeLiveSV, maxPossibleSV as computeMaxSV, sumCompulsoryBonus } from "../codes/compulsory-scoring";
 
 interface Props {
   routine: CompulsoryRoutine;
@@ -22,22 +23,30 @@ export function CompulsoryRoutineView({ routine }: Props) {
   const [achieved, setAchieved] = useState<Set<string>>(new Set());
 
   const toggle = (key: string) => {
+    const part = routine.parts.find((p) => p.number === key);
     setAchieved((prev) => {
       const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
+      if (next.has(key)) {
+        next.delete(key);
+        return next;
+      }
+      next.add(key);
+      // Mutually-exclusive bonuses: claiming one unclaims its siblings, since
+      // only one of the group may ever be credited.
+      if (part?.exclusiveGroup) {
+        for (const p of routine.parts) {
+          if (p.number !== key && p.exclusiveGroup === part.exclusiveGroup) {
+            next.delete(p.number);
+          }
+        }
+      }
       return next;
     });
   };
 
-  const bonusTotal = routine.parts.reduce((sum, p) => {
-    if (achieved.has(p.number) && p.bonusValue) return sum + p.bonusValue;
-    return sum;
-  }, 0);
-  const liveSV = Math.round((routine.baseStartValue + bonusTotal) * 10) / 10;
-  const maxPossibleSV =
-    routine.baseStartValue +
-    routine.parts.reduce((sum, p) => sum + (p.bonusValue ?? 0), 0);
+  const bonusTotal = sumCompulsoryBonus(routine.parts, (p) => achieved.has(p.number));
+  const liveSV = computeLiveSV(routine, achieved);
+  const maxPossibleSV = computeMaxSV(routine);
 
   const required = routine.parts.filter((p) => p.kind === "element");
   const bonuses = routine.parts.filter(
