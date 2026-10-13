@@ -95,12 +95,31 @@ export function HomePage({
     <div className="min-h-screen text-slate-100">
       <main className="max-w-5xl mx-auto px-4 py-10 md:py-16">
         <header className="mb-8">
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-slate-100 via-slate-100 to-sky-200 bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-100">
             Start Value Calculator
           </h1>
-          <p className="text-slate-400 mt-2 text-sm">
-            Build routines, track your D-score
+          <p className="text-slate-300 mt-2 text-sm max-w-xl leading-relaxed">
+            Build a men's artistic gymnastics routine skill by skill and watch its
+            D-score (start value) update live — for gymnasts and their coaches.
           </p>
+          <div className="mt-5">
+            {recent.length > 0 ? (
+              <button
+                onClick={() => onLoadRoutine(recent[0].id)}
+                className="inline-flex items-center gap-2 max-w-full px-4 py-2.5 rounded-lg bg-sky-500 text-sky-950 font-semibold hover:bg-sky-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 transition-colors"
+              >
+                <span className="truncate">Resume: {recent[0].name}</span>
+                <span aria-hidden className="shrink-0">→</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => onBuildEvent(code.supportedEvents[0] ?? "FX")}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-sky-500 text-sky-950 font-semibold hover:bg-sky-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 transition-colors"
+              >
+                Build a routine <span aria-hidden>→</span>
+              </button>
+            )}
+          </div>
         </header>
 
         {/* Code-of-Points picker */}
@@ -254,7 +273,7 @@ export function HomePage({
                       <span className="text-xs text-slate-400 tabular-nums font-mono">
                         SV <span className="text-slate-100 font-semibold">{computeStartValue(r).toFixed(1)}</span>
                       </span>
-                      <span className="text-xs text-slate-600 tabular-nums hidden sm:inline">
+                      <span className="text-xs text-slate-400 tabular-nums hidden sm:inline">
                         {formatRelative(r.updatedAt)}
                       </span>
                     </button>
@@ -270,7 +289,7 @@ export function HomePage({
             <p className="text-slate-300">
               No saved routines yet. Pick an event above to build your first one.
             </p>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-400 mt-1">
               Routines save when you click{" "}
               <span className="font-mono text-slate-300">Save as new</span>.
             </p>
@@ -306,7 +325,7 @@ function Stat({
         {label}
       </div>
       <div className="text-xl font-bold tabular-nums text-slate-100">{value}</div>
-      {hint && <div className="text-[10px] text-slate-500 mt-0.5">{hint}</div>}
+      {hint && <div className="text-[10px] text-slate-400 mt-0.5">{hint}</div>}
     </div>
   );
 }

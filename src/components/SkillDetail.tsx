@@ -44,7 +44,7 @@ export function SkillDetail({ skill, onClose }: Props) {
         <div className="flex items-center gap-2 mb-3 pr-8">
           <EgBadge eg={skill.elementGroup} />
           <DifficultyBadge difficulty={skill.difficulty} numericValue={skill.numericValue} />
-          <span className="text-xs font-mono text-slate-500">
+          <span className="text-xs font-mono text-slate-400">
             {elementRef(skill)}
             {skill.pageRef !== undefined && ` · CoP p. ${skill.pageRef}`}
           </span>
@@ -57,11 +57,11 @@ export function SkillDetail({ skill, onClose }: Props) {
 
         <dl className="mt-4 grid grid-cols-2 gap-3 text-sm">
           <div>
-            <dt className="text-[11px] font-mono uppercase tracking-wider text-slate-500">Element group</dt>
+            <dt className="text-[11px] font-mono uppercase tracking-wider text-slate-400">Element group</dt>
             <dd className="text-slate-100">{skill.elementGroup}</dd>
           </div>
           <div>
-            <dt className="text-[11px] font-mono uppercase tracking-wider text-slate-500">Difficulty value</dt>
+            <dt className="text-[11px] font-mono uppercase tracking-wider text-slate-400">Difficulty value</dt>
             <dd className="text-slate-100">
               {skill.numericValue === undefined && `${skill.difficulty} · `}
               {value.toFixed(1)}

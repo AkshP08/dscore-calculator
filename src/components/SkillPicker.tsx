@@ -84,10 +84,10 @@ export function SkillPicker({ catalog, isVault, onPick, onClose, onOpenCustom }:
             placeholder="Search — try 'back full twist', 'stockli', 'double back', III.41…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full px-3 py-1.5 rounded bg-slate-800 text-slate-100 placeholder-slate-500 outline-none focus:ring-1 focus:ring-slate-500"
+            className="w-full px-3 py-1.5 rounded bg-slate-800 text-slate-100 placeholder-slate-400 outline-none focus:ring-1 focus:ring-slate-500"
           />
           <div className="flex flex-wrap gap-1.5 items-center">
-            <span className="text-xs text-slate-500 font-mono mr-1">EG:</span>
+            <span className="text-xs text-slate-400 font-mono mr-1">EG:</span>
             <FilterChip active={egFilter === null} onClick={() => setEgFilter(null)}>
               all
             </FilterChip>
@@ -102,7 +102,7 @@ export function SkillPicker({ catalog, isVault, onPick, onClose, onOpenCustom }:
                 <EgBadge eg={eg} />
               </button>
             ))}
-            <span className="text-xs text-slate-500 font-mono ml-3 mr-1">DV:</span>
+            <span className="text-xs text-slate-400 font-mono ml-3 mr-1">DV:</span>
             <FilterChip active={diffFilter === null} onClick={() => setDiffFilter(null)}>
               all
             </FilterChip>
@@ -143,7 +143,7 @@ export function SkillPicker({ catalog, isVault, onPick, onClose, onOpenCustom }:
             );
           })}
           {filtered.length === 0 && (
-            <p className="text-center text-slate-500 italic py-8">No skills match those filters.</p>
+            <p className="text-center text-slate-400 italic py-8">No skills match those filters.</p>
           )}
         </div>
 
@@ -204,7 +204,7 @@ function SkillCard({
         <div className="flex items-center gap-1.5 px-3 pt-3">
           <EgBadge eg={skill.elementGroup} />
           <DifficultyBadge difficulty={skill.difficulty} numericValue={skill.numericValue} />
-          <span className="ml-auto text-[11px] font-mono text-slate-500">
+          <span className="ml-auto text-[11px] font-mono text-slate-400">
             {elementRef(skill)}
           </span>
         </div>
@@ -217,10 +217,10 @@ function SkillCard({
             Element group {skill.elementGroup} · difficulty{" "}
             {skill.numericValue === undefined && `${skill.difficulty} `}({value.toFixed(1)})
           </p>
-          {skill.notes && <p className="text-xs text-slate-500 mt-1">{skill.notes}</p>}
+          {skill.notes && <p className="text-xs text-slate-400 mt-1">{skill.notes}</p>}
         </div>
       </button>
-      <footer className="px-3 py-2 border-t border-slate-800 flex items-center justify-between gap-2 text-[11px] text-slate-500 font-mono">
+      <footer className="px-3 py-2 border-t border-slate-800 flex items-center justify-between gap-2 text-[11px] text-slate-400 font-mono">
         <a
           href={copLink(skill)}
           target="_blank"
