@@ -1,0 +1,20 @@
+node_modules
+dist
+.DS_Store
+.vite
+*.log
+
+# FIG Code of Points PDF (copyrighted; each user supplies their own copy)
+*.pdf
+
+# Generated diagram images — regenerate via `npm run extract-images`
+public/images/cop-pages/
+# Manual per-skill crops are kept in version control:
+!public/images/skills/
+
+# Env / local tooling
+.env
+.env.*
+*.tsbuildinfo
+.netlify
+.claude/settings.local.json
