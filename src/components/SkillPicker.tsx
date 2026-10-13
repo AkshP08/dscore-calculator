@@ -9,6 +9,7 @@ import {
 import { DifficultyBadge, EgBadge } from "./Badges";
 import { copLink, elementRef } from "../lib/fig-links";
 import { buildSearchIndex, parseQuery, scoreEntry } from "../lib/skill-search";
+import { useDialog } from "../lib/useDialog";
 
 interface Props {
   catalog: Skill[];
@@ -22,6 +23,7 @@ export function SkillPicker({ catalog, isVault, onPick, onClose, onOpenCustom }:
   const [search, setSearch] = useState("");
   const [egFilter, setEgFilter] = useState<ElementGroup | null>(null);
   const [diffFilter, setDiffFilter] = useState<Difficulty | null>(null);
+  const dialogRef = useDialog<HTMLDivElement>(onClose);
 
   const groups = isVault ? ALL_VAULT_GROUPS : ALL_ELEMENT_GROUPS;
 
@@ -63,7 +65,12 @@ export function SkillPicker({ catalog, isVault, onPick, onClose, onOpenCustom }:
       onClick={onClose}
     >
       <div
-        className="w-full max-w-5xl bg-slate-900 border border-slate-700 rounded-lg shadow-2xl flex flex-col overflow-hidden"
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={isVault ? "Choose a vault" : "Add a skill"}
+        tabIndex={-1}
+        className="w-full max-w-5xl bg-slate-900 border border-slate-700 rounded-lg shadow-2xl flex flex-col overflow-hidden outline-none"
         onClick={(e) => e.stopPropagation()}
       >
         <header className="flex items-center gap-3 p-3 border-b border-slate-800">
@@ -196,10 +203,10 @@ function SkillCard({
 }) {
   const value = skill.numericValue ?? DIFFICULTY_VALUES[skill.difficulty];
   return (
-    <div className="group flex flex-col rounded-lg border border-slate-800 bg-slate-900/80 hover:border-sky-500/60 hover:bg-slate-800/80 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-sky-900/20 transition-all overflow-hidden">
+    <div className="group flex flex-col rounded-lg border border-slate-800 bg-slate-900/80 hover:border-sky-500/60 hover:bg-slate-800/80 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-sky-900/20 transition-all overflow-hidden focus-within:ring-2 focus-within:ring-sky-500/60 focus-within:border-sky-500/60">
       <button
         onClick={() => onPick(skill)}
-        className="text-left flex-1 flex flex-col"
+        className="text-left flex-1 flex flex-col focus:outline-none focus-visible:outline-none"
       >
         <div className="flex items-center gap-1.5 px-3 pt-3">
           <EgBadge eg={skill.elementGroup} />

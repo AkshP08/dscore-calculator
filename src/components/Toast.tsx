@@ -6,14 +6,21 @@ import type { ReactNode } from "react";
 
 type ToastVariant = "success" | "info" | "warning" | "error";
 
+/** Optional single action rendered inside the toast, e.g. "Undo" after a delete. */
+interface ToastAction {
+  label: string;
+  onAction: () => void;
+}
+
 interface ToastState {
   id: number;
   message: string;
   variant: ToastVariant;
+  action?: ToastAction;
 }
 
 interface ToastContextValue {
-  notify: (message: string, variant?: ToastVariant) => void;
+  notify: (message: string, variant?: ToastVariant, action?: ToastAction) => void;
 }
 
 const ToastContext = createContext<ToastContextValue | undefined>(undefined);
@@ -21,11 +28,14 @@ const ToastContext = createContext<ToastContextValue | undefined>(undefined);
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<ToastState[]>([]);
 
-  const notify = useCallback((message: string, variant: ToastVariant = "success") => {
-    // Keep only the latest toast on screen at a time.
-    const id = Date.now() + Math.random();
-    setToasts([{ id, message, variant }]);
-  }, []);
+  const notify = useCallback(
+    (message: string, variant: ToastVariant = "success", action?: ToastAction) => {
+      // Keep only the latest toast on screen at a time.
+      const id = Date.now() + Math.random();
+      setToasts([{ id, message, variant, action }]);
+    },
+    [],
+  );
 
   return (
     <ToastContext.Provider value={{ notify }}>
@@ -49,7 +59,7 @@ function ToastViewport({
   onDismiss: (id: number) => void;
 }) {
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 pointer-events-none">
+    <div className="fixed bottom-4 inset-x-0 px-4 z-[100] flex flex-col items-center gap-2 pointer-events-none">
       {toasts.map((t) => (
         <ToastItem key={t.id} toast={t} onDismiss={() => onDismiss(t.id)} />
       ))}
@@ -73,17 +83,30 @@ const VARIANT_ICONS: Record<ToastVariant, string> = {
 
 function ToastItem({ toast, onDismiss }: { toast: ToastState; onDismiss: () => void }) {
   useEffect(() => {
-    const timer = setTimeout(onDismiss, 2500);
+    // Give actionable toasts longer to live — the user has to read and reach
+    // for the action (e.g. Undo) before it disappears.
+    const timer = setTimeout(onDismiss, toast.action ? 6000 : 2500);
     return () => clearTimeout(timer);
-  }, [onDismiss]);
+  }, [onDismiss, toast.action]);
 
   return (
     <div
       role="status"
-      className={`px-4 py-2 rounded-full border shadow-lg flex items-center gap-2 text-sm font-medium pointer-events-auto animate-toast ${VARIANT_STYLES[toast.variant]}`}
+      className={`max-w-full pl-4 ${toast.action ? "pr-2" : "pr-4"} py-2 rounded-full border shadow-lg flex items-center gap-2 text-sm font-medium pointer-events-auto animate-toast ${VARIANT_STYLES[toast.variant]}`}
     >
-      <span className="text-base leading-none">{VARIANT_ICONS[toast.variant]}</span>
-      <span>{toast.message}</span>
+      <span className="text-base leading-none shrink-0">{VARIANT_ICONS[toast.variant]}</span>
+      <span className="min-w-0 truncate">{toast.message}</span>
+      {toast.action && (
+        <button
+          onClick={() => {
+            toast.action!.onAction();
+            onDismiss();
+          }}
+          className="ml-1 shrink-0 rounded-full bg-white/15 hover:bg-white/25 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+        >
+          {toast.action.label}
+        </button>
+      )}
     </div>
   );
 }

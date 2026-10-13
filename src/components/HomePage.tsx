@@ -136,7 +136,7 @@ export function HomePage({
                   onClick={() => c.enabled && onSelectCode(c.id)}
                   disabled={!c.enabled}
                   className={[
-                    "text-left p-3 rounded-lg border transition-all",
+                    "text-left p-3 rounded-lg border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50",
                     active
                       ? "border-sky-500/60 bg-sky-500/10 ring-1 ring-sky-500/30"
                       : c.enabled
@@ -207,6 +207,7 @@ export function HomePage({
                     "group relative text-left rounded-xl p-4 transition-all duration-200",
                     "bg-gradient-to-br border ring-1 ring-inset",
                     "before:absolute before:inset-0 before:rounded-xl before:bg-slate-950/40 before:-z-10",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/80",
                     enabled
                       ? `${theme.bg} ${theme.ring} border-white/5 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40 cursor-pointer`
                       : "from-slate-900 to-slate-950 border-slate-800 ring-slate-800 opacity-50 cursor-not-allowed",
@@ -263,7 +264,7 @@ export function HomePage({
                   <li key={r.id}>
                     <button
                       onClick={() => onLoadRoutine(r.id)}
-                      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg border border-slate-800 bg-slate-900/40 hover:border-slate-600 hover:bg-slate-800/60 transition-colors text-left"
+                      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg border border-slate-800 bg-slate-900/40 hover:border-slate-600 hover:bg-slate-800/60 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50"
                     >
                       <span className={`px-2 py-0.5 rounded-md border text-xs font-mono w-12 text-center ${theme.chip}`}>
                         {r.event}

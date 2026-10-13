@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import type { Routine, RoutineSkill, ScoreBreakdown, Skill } from "../codes/types";
 import { DifficultyBadge, EgStripe } from "./Badges";
 import { uid } from "../lib/uid";
 import { SkillDetail } from "./SkillDetail";
+import { useToast } from "./Toast";
 
 interface Props {
   routine: Routine;
@@ -27,17 +28,36 @@ export function RoutineBuilder({
 
   const countingSet = new Set(breakdown.countingUids);
   const isVault = routine.event === "VT";
+  const { notify } = useToast();
 
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
   const [zoomSkill, setZoomSkill] = useState<Skill | null>(null);
+
+  // Track the latest routine so an "Undo" tapped seconds after a remove
+  // re-inserts into current state rather than a stale snapshot.
+  const routineRef = useRef(routine);
+  routineRef.current = routine;
 
   const updateSkills = (next: RoutineSkill[]) => {
     onUpdate({ ...routine, skills: next, updatedAt: Date.now() });
   };
 
   const remove = (index: number) => {
+    const removed = routine.skills[index];
+    const removedName = skillById.get(removed?.skillId ?? "")?.name;
+    const routineId = routine.id;
     updateSkills(routine.skills.filter((_, i) => i !== index));
+    notify(removedName ? `Removed ${removedName}` : "Removed skill", "info", {
+      label: "Undo",
+      onAction: () => {
+        const cur = routineRef.current;
+        if (cur.id !== routineId || !removed) return; // routine changed; don't cross-insert
+        const next = [...cur.skills];
+        next.splice(Math.min(index, next.length), 0, removed);
+        onUpdate({ ...cur, skills: next, updatedAt: Date.now() });
+      },
+    });
   };
 
   const toggleConnection = (index: number) => {

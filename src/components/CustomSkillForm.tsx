@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Difficulty, ElementGroup, GymEvent, Skill } from "../codes/types";
 import { ALL_DIFFICULTIES, ALL_ELEMENT_GROUPS, ALL_VAULT_GROUPS } from "../codes/types";
 import { uid } from "../lib/uid";
+import { useDialog } from "../lib/useDialog";
 
 interface Props {
   codeId: string;
@@ -22,6 +23,7 @@ export function CustomSkillForm({ codeId, event, onSave, onCancel }: Props) {
 
   const isVault = event === "VT";
   const groups = isVault ? ALL_VAULT_GROUPS : ALL_ELEMENT_GROUPS;
+  const dialogRef = useDialog<HTMLDivElement>(onCancel);
 
   const handleSave = () => {
     if (!name.trim()) return;
@@ -47,7 +49,12 @@ export function CustomSkillForm({ codeId, event, onSave, onCancel }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm p-4 pt-12" onClick={onCancel}>
       <div
-        className="w-full max-w-md bg-slate-900 border border-slate-700 rounded-lg shadow-2xl p-4 space-y-3"
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Add custom skill"
+        tabIndex={-1}
+        className="w-full max-w-md bg-slate-900 border border-slate-700 rounded-lg shadow-2xl p-4 space-y-3 outline-none"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="font-semibold text-slate-100">Add custom skill</h2>
