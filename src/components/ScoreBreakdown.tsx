@@ -56,7 +56,10 @@ export function ScoreBreakdownView({ event, breakdown, catalog }: Props) {
               const fulfillingSkill = detail?.fulfilledBySkillId
                 ? skillById.get(detail.fulfilledBySkillId)
                 : undefined;
-              const maxBonus = 0.5; // EG bonuses cap at 0.5 (D+ or EG-I)
+              // Gauge scaled to the 0.5 EG max so a +0.3 group reads as headroom
+              // toward +0.5, not as "half done". Display-only; this never feeds
+              // the computed score (that comes from calculateStartValue).
+              const maxBonus = 0.5;
               const pct = Math.min(100, (bonus / maxBonus) * 100);
               const filled = bonus > 0;
               return (
