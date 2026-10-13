@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-12T00:00:00.000Z",
+  "title": "Design System: D-Score Calculator",
+  "extensions": {
+    "colorMeta": {
+      "canvas": { "role": "neutral", "displayName": "Canvas Slate", "tonalRamp": ["#020617", "#0f172a", "#1e293b", "#334155", "#475569", "#64748b", "#94a3b8", "#cbd5e1"] },
+      "surface": { "role": "neutral", "displayName": "Surface Slate", "tonalRamp": ["#020617", "#0f172a", "#1e293b", "#334155", "#475569", "#64748b", "#94a3b8", "#cbd5e1"] },
+      "surface-raised": { "role": "neutral", "displayName": "Raised Slate", "tonalRamp": ["#020617", "#0f172a", "#1e293b", "#334155", "#475569", "#64748b", "#94a3b8", "#cbd5e1"] },
+      "line": { "role": "neutral", "displayName": "Hairline Slate", "tonalRamp": ["#0f172a", "#1e293b", "#334155", "#475569", "#64748b", "#94a3b8", "#cbd5e1", "#e2e8f0"] },
+      "text-primary": { "role": "neutral", "displayName": "Primary Slate 100", "tonalRamp": ["#334155", "#475569", "#64748b", "#94a3b8", "#cbd5e1", "#e2e8f0", "#f1f5f9", "#f8fafc"] },
+      "signal": { "role": "primary", "displayName": "Signal Sky", "tonalRamp": ["#082f49", "#0c4a6e", "#075985", "#0369a1", "#0284c7", "#0ea5e9", "#38bdf8", "#7dd3fc"] },
+      "signal-bright": { "role": "primary", "displayName": "Signal Bright", "tonalRamp": ["#0c4a6e", "#075985", "#0369a1", "#0284c7", "#0ea5e9", "#38bdf8", "#7dd3fc", "#bae6fd"] },
+      "signal-pale": { "role": "primary", "displayName": "Signal Pale", "tonalRamp": ["#075985", "#0369a1", "#0284c7", "#0ea5e9", "#38bdf8", "#7dd3fc", "#bae6fd", "#e0f2fe"] },
+      "positive": { "role": "secondary", "displayName": "Positive Emerald", "tonalRamp": ["#022c22", "#064e3b", "#065f46", "#047857", "#059669", "#10b981", "#34d399", "#6ee7b7"] },
+      "positive-bright": { "role": "secondary", "displayName": "Positive Bright", "tonalRamp": ["#064e3b", "#065f46", "#047857", "#059669", "#10b981", "#34d399", "#6ee7b7", "#a7f3d0"] },
+      "positive-text": { "role": "secondary", "displayName": "Positive Text", "tonalRamp": ["#065f46", "#047857", "#059669", "#10b981", "#34d399", "#6ee7b7", "#a7f3d0", "#d1fae5"] },
+      "positive-deep": { "role": "secondary", "displayName": "Save Emerald", "tonalRamp": ["#022c22", "#064e3b", "#065f46", "#047857", "#059669", "#10b981", "#34d399", "#6ee7b7"] },
+      "warning": { "role": "tertiary", "displayName": "Warning Amber", "tonalRamp": ["#451a03", "#78350f", "#92400e", "#b45309", "#d97706", "#f59e0b", "#fbbf24", "#fcd34d"] },
+      "warning-text": { "role": "tertiary", "displayName": "Warning Text", "tonalRamp": ["#78350f", "#92400e", "#b45309", "#d97706", "#f59e0b", "#fbbf24", "#fcd34d", "#fde68a"] },
+      "danger": { "role": "tertiary", "displayName": "Danger Rose", "tonalRamp": ["#4c0519", "#881337", "#9f1239", "#be123c", "#e11d48", "#f43f5e", "#fb7185", "#fda4af"] },
+      "danger-text": { "role": "tertiary", "displayName": "Danger Text", "tonalRamp": ["#9f1239", "#be123c", "#e11d48", "#f43f5e", "#fb7185", "#fda4af", "#fecdd3", "#ffe4e6"] },
+      "danger-deep": { "role": "tertiary", "displayName": "Delete Rose", "tonalRamp": ["#4c0519", "#881337", "#9f1239", "#be123c", "#e11d48", "#f43f5e", "#fb7185", "#fda4af"] },
+      "violet": { "role": "secondary", "displayName": "Accent Violet", "tonalRamp": ["#2e1065", "#4c1d95", "#5b21b6", "#6d28d9", "#7c3aed", "#8b5cf6", "#a78bfa", "#c4b5fd"] },
+      "cyan": { "role": "tertiary", "displayName": "Group II Cyan", "tonalRamp": ["#083344", "#164e63", "#155e75", "#0e7490", "#0891b2", "#06b6d4", "#22d3ee", "#67e8f9"] },
+      "event-fx": { "role": "tertiary", "displayName": "FX Amber", "tonalRamp": ["#78350f", "#92400e", "#b45309", "#d97706", "#f59e0b", "#fbbf24", "#fcd34d", "#fde68a"] },
+      "event-ph": { "role": "tertiary", "displayName": "PH Sky", "tonalRamp": ["#075985", "#0369a1", "#0284c7", "#0ea5e9", "#38bdf8", "#7dd3fc", "#bae6fd", "#e0f2fe"] },
+      "event-sr": { "role": "tertiary", "displayName": "SR Rose", "tonalRamp": ["#9f1239", "#be123c", "#e11d48", "#f43f5e", "#fb7185", "#fda4af", "#fecdd3", "#ffe4e6"] },
+      "event-vt": { "role": "tertiary", "displayName": "VT Emerald", "tonalRamp": ["#065f46", "#047857", "#059669", "#10b981", "#34d399", "#6ee7b7", "#a7f3d0", "#d1fae5"] },
+      "event-pb": { "role": "tertiary", "displayName": "PB Violet", "tonalRamp": ["#5b21b6", "#6d28d9", "#7c3aed", "#8b5cf6", "#a78bfa", "#c4b5fd", "#ddd6fe", "#ede9fe"] },
+      "event-hb": { "role": "tertiary", "displayName": "HB Cyan", "tonalRamp": ["#155e75", "#0e7490", "#0891b2", "#06b6d4", "#22d3ee", "#67e8f9", "#a5f3fc", "#cffafe"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The home hero, 'Start Value Calculator', gradient-clipped. One per screen." },
+      "headline": { "displayName": "Headline / Score", "purpose": "The Start Value readout — the hero metric. tabular-nums, gradient-clipped, animated on change." },
+      "title": { "displayName": "Title", "purpose": "Modal and component titles, skill names, the routine-name input." },
+      "body": { "displayName": "Body", "purpose": "The default — skill names, descriptions, row content. Sans." },
+      "label": { "displayName": "Eyebrow / Label", "purpose": "Mono, uppercase, tracking-wider. Section headers, code numbers, stat labels, all machine-readable data." }
+    },
+    "difficultyScale": [
+      { "grade": "A", "fill": "#334155", "text": "#e2e8f0", "note": "slate-700" },
+      { "grade": "B", "fill": "#1d4ed8", "text": "#dbeafe", "note": "blue-700" },
+      { "grade": "C", "fill": "#047857", "text": "#d1fae5", "note": "emerald-700" },
+      { "grade": "D", "fill": "#ca8a04", "text": "#fefce8", "note": "yellow-600" },
+      { "grade": "E", "fill": "#ea580c", "text": "#fff7ed", "note": "orange-600" },
+      { "grade": "F", "fill": "#dc2626", "text": "#fef2f2", "note": "red-600" },
+      { "grade": "G", "fill": "#9333ea", "text": "#faf5ff", "note": "purple-600" },
+      { "grade": "H", "fill": "#db2777", "text": "#fdf2f8", "note": "pink-600" },
+      { "grade": "I", "fill": "#a21caf", "text": "#fdf4ff", "note": "fuchsia-700" },
+      { "grade": "J", "fill": "#701a75", "text": "#fdf4ff", "note": "fuchsia-900" }
+    ],
+    "elementGroupColors": [
+      { "group": "I", "badge-bg": "rgba(217,119,6,0.3)", "badge-text": "#fde68a", "stripe": "#f59e0b", "note": "amber" },
+      { "group": "II", "badge-bg": "rgba(8,145,178,0.3)", "badge-text": "#a5f3fc", "stripe": "#06b6d4", "note": "cyan" },
+      { "group": "III", "badge-bg": "rgba(124,58,237,0.3)", "badge-text": "#ddd6fe", "stripe": "#8b5cf6", "note": "violet" },
+      { "group": "IV", "badge-bg": "rgba(225,29,72,0.3)", "badge-text": "#fecdd3", "stripe": "#f43f5e", "note": "rose" },
+      { "group": "V", "badge-bg": "rgba(5,150,105,0.3)", "badge-text": "#a7f3d0", "stripe": "#10b981", "note": "emerald" }
+    ],
+    "shadows": [
+      { "name": "overlay", "value": "0 25px 50px -12px rgba(0,0,0,0.6)", "purpose": "Modals and picker dialogs (shadow-2xl). Separates an overlay from the page." },
+      { "name": "hover-lift", "value": "0 20px 25px -5px rgba(0,0,0,0.4)", "purpose": "Event/skill cards on hover (shadow-xl shadow-black/40), paired with a -4px translate." },
+      { "name": "hover-lift-tinted", "value": "0 10px 15px -3px rgba(12,74,110,0.2)", "purpose": "Skill cards on hover (shadow-lg shadow-sky-900/20) — a faint sky-tinted lift." },
+      { "name": "toast", "value": "0 10px 15px -3px rgba(0,0,0,0.3)", "purpose": "The floating toast pill (shadow-lg)." }
+    ],
+    "motion": [
+      { "name": "spring-toast", "value": "cubic-bezier(0.2, 0.9, 0.3, 1.4)", "purpose": "Toast entrance (180ms) — a slight overshoot for a pop-in feel." },
+      { "name": "ease-out-standard", "value": "ease-out", "purpose": "Fade (140ms) and count-up (220ms) — default for appearing/changing content." },
+      { "name": "duration-state", "value": "200ms", "purpose": "transition-colors / transition-all on buttons, chips, cards, hover lifts." },
+      { "name": "duration-progress", "value": "300ms", "purpose": "Element-group progress-bar fill width transition (transition-all duration-300)." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ],
+    "containers": [
+      { "name": "dashboard", "value": "max-w-5xl", "purpose": "Home dashboard and skill picker." },
+      { "name": "workspace", "value": "max-w-6xl", "purpose": "Builder + score-breakdown workspace." },
+      { "name": "modal", "value": "max-w-md", "purpose": "Focused modals (skill detail, custom-skill form)." },
+      { "name": "score-rail", "value": "md:w-96", "purpose": "Fixed-width Start Value breakdown rail on desktop." }
+    ],
+    "keyframes": [
+      { "name": "toast-in", "value": "from { opacity: 0; transform: translateY(8px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); }", "purpose": "Toast entrance, 180ms spring-toast." },
+      { "name": "fade", "value": "from { opacity: 0; } to { opacity: 1; }", "purpose": "Modal backdrop/content, 140ms ease-out." },
+      { "name": "count-up", "value": "from { opacity: 0.4; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); }", "purpose": "Start Value number re-animates on every change, 220ms ease-out." }
+    ],
+    "atmosphere": {
+      "bodyBackground": "radial-gradient(at 20% 0%, rgba(56,189,248,0.06) 0, transparent 50%), radial-gradient(at 85% 100%, rgba(168,85,247,0.05) 0, transparent 50%)",
+      "purpose": "A barely-there sky/violet radial wash on the slate-950 ground, background-attachment: fixed. The one decorative gesture in the system — lifts the field out of flat monochrome.",
+      "plannedChange": "To be removed (confirmed by the design owner; not yet in code). Target: a flat slate ground (#020617) with no radial wash. Documents the current state only."
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button (Save)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one semantic-positive action. Emerald fill, disables when there's nothing to save.",
+      "html": "<button class=\"ds-btn-primary\">Save</button>",
+      "css": ".ds-btn-primary { background: #047857; color: #f1f5f9; font-size: 0.875rem; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; transition: background 0.2s; } .ds-btn-primary:hover { background: #059669; } .ds-btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }"
+    },
+    {
+      "name": "Invert Button (modal confirm)",
+      "kind": "button",
+      "refersTo": "button-invert",
+      "description": "The bright, high-contrast primary action inside a modal; same styling drives the active filter chip.",
+      "html": "<button class=\"ds-btn-invert\">Add skill</button>",
+      "css": ".ds-btn-invert { background: #f1f5f9; color: #0f172a; font-size: 0.875rem; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; transition: background 0.2s; } .ds-btn-invert:hover { background: #ffffff; } .ds-btn-invert:disabled { opacity: 0.4; cursor: not-allowed; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "New / Cancel / Custom — the neutral action.",
+      "html": "<button class=\"ds-btn-secondary\">New</button>",
+      "css": ".ds-btn-secondary { background: #1e293b; color: #e2e8f0; font-size: 0.875rem; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; transition: background 0.2s; } .ds-btn-secondary:hover { background: #334155; }"
+    },
+    {
+      "name": "Add-Skill Button (dashed)",
+      "kind": "button",
+      "refersTo": "button-add",
+      "description": "The full-width 'compose here' affordance. Dashed slate outline that shifts to Signal Sky on hover.",
+      "html": "<button class=\"ds-btn-add\">+ Add skill</button>",
+      "css": ".ds-btn-add { width: 100%; background: transparent; color: #94a3b8; font-size: 0.875rem; font-weight: 500; padding: 10px; border: 1px dashed #334155; border-radius: 8px; cursor: pointer; transition: all 0.2s; } .ds-btn-add:hover { border-color: rgba(14,165,233,0.6); color: #7dd3fc; background: rgba(14,165,233,0.05); }"
+    },
+    {
+      "name": "Event Pill (header nav, active)",
+      "kind": "chip",
+      "refersTo": "chip-event",
+      "description": "Header navigation pill in its event identity color (shown: PH / sky). Inactive pills are slate-800.",
+      "html": "<button class=\"ds-chip-event\"><svg class=\"ds-chip-ico\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><circle cx=\"12\" cy=\"12\" r=\"7\"/></svg><span>PH</span></button>",
+      "css": ".ds-chip-event { display: inline-flex; align-items: center; gap: 6px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.875rem; padding: 6px 12px; border-radius: 6px; cursor: pointer; background: rgba(14,165,233,0.2); color: #bae6fd; border: 1px solid rgba(14,165,233,0.4); box-shadow: inset 0 0 0 1px rgba(14,165,233,0.4); transition: background 0.2s; } .ds-chip-ico { width: 16px; height: 16px; }"
+    },
+    {
+      "name": "Search Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Fill-is-the-field input. No resting border; a single ring on focus.",
+      "html": "<input class=\"ds-input\" placeholder=\"Search — try 'double back', III.41…\" />",
+      "css": ".ds-input { width: 100%; background: #1e293b; color: #f1f5f9; font-size: 0.875rem; padding: 6px 12px; border: none; border-radius: 4px; outline: none; } .ds-input::placeholder { color: #64748b; } .ds-input:focus { box-shadow: 0 0 0 1px #64748b; }"
+    },
+    {
+      "name": "EG Badge",
+      "kind": "chip",
+      "refersTo": "badge-eg",
+      "description": "Atomic element-group data chip (shown: EG III / violet). Mono, bordered, color-coded by group.",
+      "html": "<span class=\"ds-badge-eg\">EG&nbsp;III</span>",
+      "css": ".ds-badge-eg { display: inline-flex; align-items: center; justify-content: center; min-width: 2.5rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; background: rgba(124,58,237,0.3); color: #ddd6fe; border: 1px solid rgba(124,58,237,0.5); }"
+    },
+    {
+      "name": "Difficulty Badge",
+      "kind": "chip",
+      "refersTo": "badge-difficulty",
+      "description": "Atomic difficulty chip (shown: D / yellow-600) on the fixed A→J heat scale, numeric value in mono.",
+      "html": "<span class=\"ds-badge-diff\"><span class=\"ds-badge-diff-v\">0.4</span></span>",
+      "css": ".ds-badge-diff { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; min-width: 2.75rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; padding: 2px 8px; border-radius: 4px; background: #ca8a04; color: #fefce8; } .ds-badge-diff-v { font-size: 1rem; line-height: 1; font-weight: 700; }"
+    },
+    {
+      "name": "Start Value Panel",
+      "kind": "card",
+      "refersTo": "card-hero",
+      "description": "The signature hero: gradient-washed panel with the Start Value as a large tabular gradient-clipped readout. PLANNED CHANGE (not yet in code): the readout moves to solid #f1f5f9, no gradient clip, no count-up — instant update with at most a brief highlight. The panel gradient/radial wash is unaffected.",
+      "html": "<div class=\"ds-sv-panel\"><div class=\"ds-sv-glow\"></div><div class=\"ds-sv-inner\"><div class=\"ds-sv-label\">Start Value</div><div class=\"ds-sv-num\">6.4</div></div></div>",
+      "css": ".ds-sv-panel { position: relative; overflow: hidden; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: linear-gradient(to bottom right, rgba(2,132,199,0.15), rgba(15,23,42,0.8), rgba(109,40,217,0.15)); padding: 20px; } .ds-sv-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(at 30% 20%, rgba(56,189,248,0.15), transparent 60%); } .ds-sv-inner { position: relative; } .ds-sv-label { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; color: #94a3b8; } .ds-sv-num { margin-top: 4px; font-size: 3.75rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; background: linear-gradient(to right, #f1f5f9, #bae6fd); -webkit-background-clip: text; background-clip: text; color: transparent; }"
+    },
+    {
+      "name": "Panel Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The default flat, hairline-bordered panel. Flat at rest; no shadow.",
+      "html": "<div class=\"ds-card\"><h3 class=\"ds-card-eyebrow\">Element Groups</h3><p class=\"ds-card-body\">Dense content lives here.</p></div>",
+      "css": ".ds-card { border-radius: 12px; border: 1px solid #1e293b; background: rgba(15,23,42,0.6); padding: 16px; } .ds-card-eyebrow { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; margin: 0 0 12px; } .ds-card-body { font-size: 0.875rem; color: #f1f5f9; margin: 0; }"
+    },
+    {
+      "name": "Toast",
+      "kind": "custom",
+      "refersTo": "toast",
+      "description": "Floating pill notification (shown: success / emerald). One at a time, auto-dismisses after 2.5s.",
+      "html": "<div class=\"ds-toast\"><span class=\"ds-toast-ico\">✓</span><span>Saved “Floor opener”</span></div>",
+      "css": ".ds-toast { display: inline-flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 500; padding: 8px 16px; border-radius: 9999px; background: #059669; color: #ffffff; border: 1px solid #34d399; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); } .ds-toast-ico { font-size: 1rem; line-height: 1; }"
+    },
+    {
+      "name": "EG Bonus Progress Bar",
+      "kind": "custom",
+      "refersTo": "progress-eg",
+      "description": "Thin fulfilment gauge under each element group. Slate-800 track; fulfilled groups fill emerald-500→400 and animate width (shown: ~80% filled). Unfulfilled groups show a flat slate-700 nub.",
+      "html": "<div class=\"ds-eg-track\"><div class=\"ds-eg-fill\" style=\"width: 80%\"></div></div>",
+      "css": ".ds-eg-track { height: 6px; border-radius: 9999px; background: #1e293b; overflow: hidden; } .ds-eg-fill { height: 100%; border-radius: 9999px; background: linear-gradient(to right, #10b981, #34d399); transition: width 0.3s; }"
+    },
+    {
+      "name": "Compulsory Required Part Row",
+      "kind": "custom",
+      "refersTo": "row-compulsory-part",
+      "description": "Read-only prescribed part of a compulsory routine. Flat slate row; mono bold part number in a fixed gutter; sans description; optional italic criteria and amber warning notes.",
+      "html": "<div class=\"ds-cpart\"><span class=\"ds-cpart-num\">#2</span><div class=\"ds-cpart-body\"><p class=\"ds-cpart-desc\">Press to handstand, hold 2 seconds.</p><p class=\"ds-cpart-crit\">Straight arms throughout.</p></div></div>",
+      "css": ".ds-cpart { display: flex; align-items: flex-start; gap: 12px; padding: 8px 12px; border-radius: 8px; background: rgba(15,23,42,0.6); border: 1px solid #1e293b; } .ds-cpart-num { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.875rem; font-weight: 700; color: #cbd5e1; min-width: 2.5rem; text-align: center; padding-top: 2px; } .ds-cpart-body { flex: 1; min-width: 0; } .ds-cpart-desc { margin: 0; font-size: 0.875rem; color: #f1f5f9; line-height: 1.375; } .ds-cpart-crit { margin: 4px 0 0; font-size: 0.75rem; font-style: italic; color: #94a3b8; }"
+    },
+    {
+      "name": "Compulsory Bonus Row (toggle)",
+      "kind": "custom",
+      "refersTo": "row-compulsory-bonus",
+      "description": "A Specified-Bonus / Value-Increase part as a toggle button (shown: achieved). Achieved = emerald-900/30 on emerald-600/60 with a filled check; amber eyebrow for Specified Bonus, sky for Value Increase; +value in the mono gutter.",
+      "html": "<button class=\"ds-cbonus is-achieved\"><div class=\"ds-cbonus-gutter\"><span class=\"ds-cbonus-num\">SB1</span><span class=\"ds-cbonus-val\">+0.5</span></div><div class=\"ds-cbonus-body\"><span class=\"ds-cbonus-kind ds-sb\">Specified Bonus</span><p class=\"ds-cbonus-desc\">Dismount with a full twist.</p></div><span class=\"ds-cbonus-check\">✓</span></button>",
+      "css": ".ds-cbonus { width: 100%; text-align: left; display: flex; align-items: flex-start; gap: 12px; padding: 8px 12px; border-radius: 8px; background: rgba(15,23,42,0.6); border: 1px solid #1e293b; cursor: pointer; transition: border-color 0.2s, background 0.2s; } .ds-cbonus:hover { border-color: #475569; } .ds-cbonus.is-achieved { background: rgba(6,78,59,0.3); border-color: rgba(5,150,105,0.6); } .ds-cbonus-gutter { display: flex; flex-direction: column; align-items: center; min-width: 2.5rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; } .ds-cbonus-num { font-size: 0.75rem; font-weight: 700; color: #cbd5e1; } .ds-cbonus-val { font-size: 0.625rem; margin-top: 2px; color: #6ee7b7; } .ds-cbonus-body { flex: 1; min-width: 0; } .ds-cbonus-kind { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.625rem; text-transform: uppercase; } .ds-cbonus-kind.ds-sb { color: #fcd34d; } .ds-cbonus-kind.ds-vi { color: #7dd3fc; } .ds-cbonus-desc { margin: 2px 0 0; font-size: 0.875rem; color: #f1f5f9; line-height: 1.375; } .ds-cbonus-check { flex-shrink: 0; width: 20px; height: 20px; border-radius: 4px; display: grid; place-items: center; font-size: 0.75rem; background: #10b981; border: 1px solid #34d399; color: #ffffff; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Judge's Console",
+    "overview": "The D-Score Calculator is a dark, dense scoring instrument for people who already speak gymnastics. It reads like a well-made judging console: a near-black slate ground, flat panels layered by tone rather than shadow, and a single large tabular readout — the Start Value — that is the hero of every screen. Everything is legible at a glance and citeable to the Code of Points. Nothing is ornamental; the one decorative gesture in the whole system is a barely-there radial wash of sky and violet behind the darkest surfaces, just enough to lift the field out of flat monochrome. Color is rationed. The slate neutral ramp carries 90% of every screen, and the vivid hues earn their place by meaning something: emerald is credit, amber is caution, rose is loss, sky is the primary signal. The six events each own one identity color — a 'lit apparatus' accent at the 300-level of its hue — and those colors appear only where event identity is the point. The typographic signature is a terminal-style monospace used for every label, code identification number, and numeric value: it makes the whole surface feel measured and instrument-grade, and it visually separates data (mono) from prose (sans). Density and speed outrank hand-holding. This is a tool for a fluent audience composing and optimizing routines, often one-handed on a phone on the gym floor. The anti-reference is the cheerful, rounded, pastel 'fitness app'. Precision is the personality.",
+    "keyCharacteristics": [
+      "Near-black slate ground (#020617) with flat, tone-layered panels — depth without shadow.",
+      "One hero metric per screen: the Start Value as a large tabular-nums gradient readout.",
+      "A terminal-monospace label system that marks everything machine-readable (codes, values, groups).",
+      "Color used only semantically or for event identity — never as decoration.",
+      "Six event identity colors, each the 300-level of its hue, used sparingly as 'channel' accents."
+    ],
+    "rules": [
+      { "name": "The Rationed Color Rule", "body": "Slate carries the screen. A vivid hue appears only when it means something — credit, caution, loss, signal, or which apparatus you're on. If a color is doing decoration, remove it.", "section": "colors" },
+      { "name": "The Alpha-Over-Slate Rule", "body": "Build surfaces and states by compositing color over slate at low alpha (bg-sky-500/10, border-emerald-600/60, surface at /40), not with solid fills. Solid, fully-saturated fills are reserved for small badges, toasts, and the Save button.", "section": "colors" },
+      { "name": "The Twelve-Grade Difficulty Scale", "body": "Difficulty badges (A→J) run a fixed heat spectrum: A slate → B blue → C emerald → D yellow → E orange → F red → G purple → H pink → I fuchsia → J deep-fuchsia. This mapping is normative; never recolor a difficulty badge off this scale.", "section": "colors" },
+      { "name": "The Mono-Data Rule", "body": "Every code identification number, difficulty value, Start Value, bonus figure, and classification label is set in monospace with tabular-nums where it's numeric. Prose and names stay sans. Never set a routine description or a sentence in mono, and never set a score in the proportional sans.", "section": "typography" },
+      { "name": "The Eyebrow Label Rule", "body": "Section and group labels are small, uppercase, mono, tracking-wider, and text-slate-400/-500. They name a region without competing with its content.", "section": "typography" },
+      { "name": "The Fixed-Rail Rule", "body": "On desktop the Start Value breakdown is a fixed-width rail that never reflows as the routine grows; the routine list absorbs all width change. On mobile it stacks below, never into a cramped side-by-side.", "section": "layout" },
+      { "name": "The Flat-At-Rest Rule", "body": "No surface carries a shadow at rest. Depth at rest is conveyed by tonal layering (alpha slate over canvas). Shadow is reserved for overlays and hover/active response.", "section": "elevation" },
+      { "name": "The Hairline-Border Rule", "body": "Every panel gets a 1px border (slate-800 at rest, slate-700 for emphasis, a semantic hue at alpha for state). Because the system is shadowless at rest, the border is the edge — never ship a borderless card on the canvas.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do keep slate as ~90% of every screen and let a vivid hue appear only when it carries meaning (credit = emerald, caution = amber, loss = rose, signal = sky, identity = event color).",
+      "Do set all codes, values, and classification labels in monospace with tabular-nums for numbers; keep prose and names in the sans. Data is mono, prose is sans — always.",
+      "Do build surfaces by compositing color over slate at low alpha (/10–/60), and give every panel a 1px border since the system is shadowless at rest.",
+      "Do make the Start Value the single hero of any screen it appears on — large, tabular, gradient-clipped, animated on change.",
+      "Do stack the builder's two panes to one column below md; the breakdown goes under the builder, never into a cramped phone-width split."
+    ],
+    "donts": [
+      "Don't add resting shadows. Depth at rest is tonal layering; shadow means overlay or hover.",
+      "Don't recolor a difficulty badge off the A→J heat scale, or restyle an event away from its assigned identity hue.",
+      "Don't use color decoratively — no gradient-as-ornament beyond the established hero/radial washes, no colored surface that isn't signalling state or identity.",
+      "Don't introduce a web font or set data in the proportional sans; the system/mono split is the typographic identity.",
+      "Don't soften the product toward a friendly consumer-fitness look (pastel fills, big rounded illustrations, explanatory hand-holding). The audience is fluent; precision is the personality."
+    ]
+  }
+}
