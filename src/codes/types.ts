@@ -159,6 +159,13 @@ export interface CompulsoryPart {
   criteria?: string;
   /** Notes about deductions, restrictions, or sequencing requirements. */
   notes?: string;
+  /**
+   * Bonus parts that share an `exclusiveGroup` (within one routine) are
+   * mutually exclusive: the source manual credits only the single
+   * highest-value member, even if several are performed. Used for the
+   * "only one of SB 3A / 3B …" clauses in the MDP compulsory routines.
+   */
+  exclusiveGroup?: string;
   /** Junior Elite Tech Sequences only: this box contains a Major Element (worth 2.0; missing it is −1.0). */
   isMajor?: boolean;
   /** Junior Elite Tech Sequences only: comma-separated list of technical reference items being practised. */
