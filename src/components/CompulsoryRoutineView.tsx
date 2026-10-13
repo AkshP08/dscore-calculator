@@ -51,7 +51,7 @@ export function CompulsoryRoutineView({ routine }: Props) {
           <span className="text-xs font-mono uppercase tracking-wider text-amber-300">
             Compulsory Routine
           </span>
-          <span className="text-xs text-slate-500 font-mono">
+          <span className="text-xs text-slate-400 font-mono">
             Level {routine.level} · {routine.event}
           </span>
         </div>
@@ -59,7 +59,7 @@ export function CompulsoryRoutineView({ routine }: Props) {
           {routine.routineNotes ??
             "Perform the prescribed parts in order. Specified Bonuses and Value Increases earn extra credit if cleanly achieved."}
         </p>
-        <p className="text-[10px] text-slate-500 mt-2 italic">
+        <p className="text-[10px] text-slate-400 mt-2 italic">
           Source: {routine.sourceNote}
         </p>
       </div>
@@ -104,14 +104,14 @@ export function CompulsoryRoutineView({ routine }: Props) {
           Current Start Value
         </div>
         <div className="flex items-baseline gap-3 mt-1">
-          <div className="text-5xl font-bold tabular-nums bg-gradient-to-r from-slate-100 to-sky-200 bg-clip-text text-transparent">
+          <div key={liveSV} className="text-5xl font-bold tabular-nums text-slate-100 animate-sv">
             {liveSV.toFixed(1)}
           </div>
           <div className="text-xs text-slate-400">
             base {routine.baseStartValue.toFixed(1)} + bonuses {bonusTotal.toFixed(1)}
           </div>
         </div>
-        <div className="text-[11px] text-slate-500 mt-1">
+        <div className="text-[11px] text-slate-400 mt-1">
           Maximum possible (all bonuses):{" "}
           <span className="font-mono">{maxPossibleSV.toFixed(1)}</span>
         </div>
@@ -171,7 +171,7 @@ function BonusRow({
       <div className="flex flex-col items-center min-w-[2.5rem]">
         <span className="font-mono text-xs font-bold text-slate-300">{part.number}</span>
         <span
-          className={`text-[10px] font-mono mt-0.5 ${achieved ? "text-emerald-300" : "text-slate-500"}`}
+          className={`text-[10px] font-mono mt-0.5 ${achieved ? "text-emerald-300" : "text-slate-400"}`}
         >
           {part.bonusValue !== undefined ? `+${part.bonusValue.toFixed(1)}` : ""}
         </span>

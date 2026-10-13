@@ -114,7 +114,7 @@ export function RoutineBuilder({
                         "text-[11px] font-mono px-2 py-0.5 rounded transition-colors group-focus-visible/conn:ring-1 group-focus-visible/conn:ring-sky-500/70",
                         rs.connectedToPrevious
                           ? "bg-emerald-700/40 text-emerald-200 border border-emerald-600/60"
-                          : "bg-slate-800/60 text-slate-500 border border-slate-700 group-hover/conn:bg-slate-700 group-hover/conn:text-slate-300",
+                          : "bg-slate-800/60 text-slate-400 border border-slate-700 group-hover/conn:bg-slate-700 group-hover/conn:text-slate-200",
                       ].join(" ")}
                     >
                       {rs.connectedToPrevious ? "↪ connected" : "+ connect"}
@@ -214,7 +214,7 @@ export function RoutineBuilder({
                       <span className="text-slate-400 italic"> · {skill.eponym}</span>
                     )}
                   </div>
-                  <div className="text-[11px] text-slate-500 font-mono">
+                  <div className="text-[11px] text-slate-400 font-mono">
                     {skill.codeIdentificationNumber}
                     {isDismount && (
                       <span className="ml-2 inline-block px-1.5 rounded bg-rose-700/40 text-rose-200">

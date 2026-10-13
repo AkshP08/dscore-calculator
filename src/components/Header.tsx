@@ -34,7 +34,7 @@ export function Header({ code, event, onSelectEvent, onGoHome }: Props) {
             <h1 className="text-base font-semibold tracking-tight">
               Start Value Calculator
             </h1>
-            <p className="text-[11px] text-slate-500">{code.shortName}</p>
+            <p className="text-[11px] text-slate-400">{code.shortName}</p>
           </div>
         </button>
         <nav className="ml-auto flex gap-1 min-w-0 overflow-x-auto">

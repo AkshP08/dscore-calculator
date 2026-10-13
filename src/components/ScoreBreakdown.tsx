@@ -33,7 +33,7 @@ export function ScoreBreakdownView({ event, breakdown, catalog }: Props) {
           </div>
           <div
             key={animKey}
-            className="text-6xl font-bold tabular-nums bg-gradient-to-r from-slate-100 to-sky-200 bg-clip-text text-transparent mt-1 animate-count"
+            className="text-6xl font-bold tabular-nums text-slate-100 mt-1 animate-sv"
           >
             {breakdown.startValue.toFixed(1)}
           </div>
@@ -84,7 +84,7 @@ export function ScoreBreakdownView({ event, breakdown, catalog }: Props) {
                     />
                   </div>
                   {fulfillingSkill && (
-                    <div className="text-[11px] text-slate-500 truncate mt-1 ml-1">
+                    <div className="text-[11px] text-slate-400 truncate mt-1 ml-1">
                       <span className="font-mono text-slate-400">
                         {fulfillingSkill.codeIdentificationNumber}
                       </span>{" "}
@@ -123,7 +123,7 @@ export function ScoreBreakdownView({ event, breakdown, catalog }: Props) {
                     </span>
                   </div>
                   {!awarded && c.reasons[0] && (
-                    <div className="text-[11px] italic text-slate-500 mt-0.5">
+                    <div className="text-[11px] italic text-slate-400 mt-0.5">
                       {c.reasons[0]}
                     </div>
                   )}
@@ -210,7 +210,7 @@ function Stat({
   }[tone];
   return (
     <div>
-      <div className="text-[10px] uppercase tracking-wider text-slate-500 font-mono">
+      <div className="text-[10px] uppercase tracking-wider text-slate-400 font-mono">
         {label}
       </div>
       <div className={`text-lg font-semibold tabular-nums ${toneColor}`}>

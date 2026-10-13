@@ -132,27 +132,14 @@ components:
 **Creative North Star: "The Judge's Console"**
 
 The North Star and the precise, instrument-grade character below are the design owner's
-confirmed decision, not a provisional read.
-
-> **Planned changes (confirmed by the design owner; not yet in code).** Two current
-> implementation details conflict with this direction and are slated to change. They are
-> documented in place throughout this file but kept explicitly separate from the current-state
-> descriptions:
-> 1. **Start Value readout → solid high-contrast text.** Target: `text-primary` (#f1f5f9),
->    `tabular-nums`, **no gradient clip**. The value updates **instantly** on change; at most a
->    brief highlight, **no `count-up` animation**. *(Current state: gradient-clipped
->    `slate-100 → sky-200`, re-animated via `count-up` on every change.)*
-> 2. **Radial body wash → removed.** Target: the background stays **flat slate** (#020617) with
->    no radial gradient. *(Current state: a faint sky/violet radial wash on the body,
->    `background-attachment: fixed`.)*
+confirmed decision.
 
 The D-Score Calculator is a dark, dense scoring instrument for people who already speak
 gymnastics. It reads like a well-made judging console: a near-black slate ground, flat panels
 layered by tone rather than shadow, and a single large tabular readout — the Start Value — that
 is the hero of every screen. Everything is legible at a glance and citeable to the Code of
-Points. Nothing is ornamental; the one decorative gesture in the whole system is a barely-there
-radial wash of sky and violet behind the darkest surfaces, just enough to lift the field out of
-flat monochrome.
+Points. Nothing is ornamental: the ground is flat slate with no gradient wash, and the hero
+readout is solid high-contrast type — emphasis comes from size and weight, never from a gradient.
 
 Color is rationed. The slate neutral ramp carries 90% of every screen, and the vivid hues earn
 their place by *meaning* something: emerald is credit, amber is caution, rose is loss, sky is
@@ -169,7 +156,8 @@ illustration, no explaining what a connection is. Precision is the personality.
 
 **Key Characteristics:**
 - Near-black slate ground (#020617) with flat, tone-layered panels — depth without shadow.
-- One hero metric per screen: the Start Value as a large tabular-nums gradient readout.
+- One hero metric per screen: the Start Value as a large, solid tabular-nums readout (instant
+  update, brief sky highlight on change).
 - A terminal-monospace label system that marks everything machine-readable (codes, values, groups).
 - Color used only semantically or for event identity — never as decoration.
 - Six event identity colors, each the 300-level of its hue, used sparingly as "channel" accents.
@@ -182,15 +170,16 @@ slate) is the primary way surfaces and states are built, not solid fills.
 
 ### Primary
 - **Signal Sky** (#38bdf8, sky-400): The one interactive accent. Focus rings, active Code-of-Points
-  selection, the "Add skill" hover state, hero-number gradient, and the faint top-left radial wash.
-  Used on a small fraction of any screen — that rarity is what makes it read as *the* signal.
-- **Signal Bright** (#7dd3fc, sky-300) / **Signal Pale** (#bae6fd, sky-200): Hover accent text and
-  the light terminus of the hero-number gradient (`slate-100 → sky-200`), respectively.
+  selection, the "Add skill" hover state, the home hero's primary CTA (sky-500), and the Start Value
+  panel's background gradient. Used on a small fraction of any screen — that rarity is the point.
+- **Signal Bright** (#7dd3fc, sky-300): Hover accent text and the brief highlight flash when the
+  Start Value updates (sky-300 settling to slate-100). **Signal Pale** (#bae6fd, sky-200): held in
+  reserve for pale gradient/gauge accents.
 
 ### Secondary
-- **Violet** (#8b5cf6, violet-500): The partner to Signal in the signature hero gradient
-  (`sky-600/15 → slate-900 → violet-700/15`) and the lower-right radial wash. Also the Parallel Bars
-  identity hue. Never used alone as an accent — it exists to give the hero surfaces depth.
+- **Violet** (#8b5cf6, violet-500): The partner to Signal in the Start Value panel's background
+  gradient (`sky-600/15 → slate-900 → violet-700/15`). Also the Parallel Bars identity hue. Never
+  used alone as an accent — it exists to give the hero panel depth.
 
 ### Tertiary
 - **Cyan** (#06b6d4, cyan-500): Element Group II and the Horizontal Bar identity base. The one hue
@@ -199,14 +188,17 @@ slate) is the primary way surfaces and states are built, not solid fills.
 ### Neutral
 - **Canvas** (#020617, slate-950): The app ground. Everything sits on this.
 - **Surface** (#0f172a, slate-900): Card and panel fill — almost always at 40–80% alpha so the
-  canvas and its radial wash show through.
+  flat canvas shows through.
 - **Surface Raised** (#1e293b, slate-800): Inputs, secondary buttons, filter chips at rest,
   hairline borders on resting cards.
 - **Line** (#334155, slate-700): Stronger borders — modal edges, dashed "Add" outlines, input strokes.
 - **Text Primary** (#f1f5f9, slate-100): Headings, values, the foreground that must be read.
-- **Text Bright** (#cbd5e1, slate-300) → **Secondary** (#94a3b8, slate-400) → **Muted**
-  (#64748b, slate-500) → **Faint** (#475569, slate-600): The de-emphasis ladder for body, eyebrow
-  labels, captions, and disabled/timestamp text respectively.
+- **Text Bright** (#cbd5e1, slate-300) and **Secondary** (#94a3b8, slate-400): the readable tiers.
+  slate-400 is the **contrast floor for all informational text** — body, eyebrow labels, captions,
+  code numbers, timestamps (≥4.5:1 on slate-900/950).
+- **Muted** (#64748b, slate-500) and **Faint** (#475569, slate-600): below 4.5:1, so reserved for
+  **disabled and genuinely non-essential** affordances only — disabled pills, empty "—"
+  placeholders, unselected-checkbox borders. They must never carry information.
 
 ### Semantic
 - **Positive Emerald** (#10b981 fill / #6ee7b7 text, emerald-500/300): Credit. Element-group bonus
@@ -236,6 +228,10 @@ fully-saturated fills are reserved for small badges, toasts, and the Save button
 A slate → B blue → C emerald → D yellow → E orange → F red → G purple → H pink → I fuchsia →
 J deep-fuchsia. This mapping is normative; never recolor a difficulty badge off this scale.
 
+**The Readable-Text Rule.** All informational text is slate-400 or lighter (≥4.5:1 on slate).
+slate-500/600 are reserved for disabled or non-essential affordances; never set a label, value,
+caption, code, or timestamp in them.
+
 ## Typography
 
 **Display / Body Font:** System sans stack (`ui-sans-serif, system-ui, -apple-system, "Segoe UI",
@@ -250,11 +246,11 @@ mono** — so you can tell at a glance what is a label or a value versus what is
 
 ### Hierarchy
 - **Display** (700, `clamp(1.875rem, 5vw, 3rem)`, tracking-tight): The home hero, "Start Value
-  Calculator," rendered as a `slate-100 → sky-200` gradient-clipped headline. One per screen.
+  Calculator," in solid `slate-100`. One per screen, paired with a one-line explainer and CTA.
 - **Headline / Score** (700, 3.75rem `text-6xl`, line-height 1, tabular-nums): The Start Value
-  readout — the hero metric. Gradient-clipped `slate-100 → sky-200`, animated on every change.
-  This is the single most important element in the system. *(Planned change — moving to solid
-  `text-primary`, instant update, no gradient clip, no `count-up`. See the Overview callout.)*
+  readout — the hero metric. **Solid `text-primary` (#f1f5f9)**, no gradient; it updates instantly
+  and flashes a brief sky highlight (`sv-flash`, 240ms) on change. The single most important
+  element in the system.
 - **Title** (600, 1.125rem `text-lg`, snug): Modal and component titles ("Add a skill", skill
   names in detail view, routine-name input).
 - **Body** (400, 0.875rem `text-sm`): The default. Skill names, descriptions, row content.
@@ -269,7 +265,7 @@ Prose and names stay sans. Never set a routine description or a sentence in mono
 score in the proportional sans.
 
 **The Eyebrow Label Rule.** Section and group labels are small, uppercase, mono, `tracking-wider`,
-and `text-slate-400`/`-500`. They name a region without competing with its content.
+and `text-slate-400`. They name a region without competing with its content.
 
 ## Layout
 
@@ -295,9 +291,9 @@ below, never into a cramped side-by-side.
 ## Elevation & Depth
 
 **Flat by default; depth comes from tone, not shadow.** Surfaces are built by layering
-translucent slate over the canvas and its radial wash (`surface at /40–/80`), so panels read as
-*lighter regions of the same material* rather than cards floating above a plane. There is no
-resting shadow anywhere in the system.
+translucent slate over the flat canvas (`surface at /40–/80`), so panels read as *lighter regions
+of the same material* rather than cards floating above a plane. There is no resting shadow
+anywhere in the system.
 
 Shadows appear only in two situations: **overlay** (modals and toasts use `shadow-2xl`/`shadow-lg`
 to separate from the page) and **response to intent** (cards lift on hover — `hover:-translate-y-1`
@@ -364,7 +360,7 @@ emphasis, a semantic hue at alpha for state). Because the system is shadowless a
 - **Internal Padding:** `p-4`/`p-5` (16–20px) for panels, `px-2 py-1.5` for dense rows.
 
 ### Inputs / Fields
-- **Style:** `slate-800` fill, `slate-100` text, `slate-500` placeholder, `rounded`, no visible
+- **Style:** `slate-800` fill, `slate-100` text, `slate-400` placeholder, `rounded`, no visible
   border at rest (the fill *is* the field).
 - **Focus:** A single ring — `focus:ring-1 focus:ring-slate-500` on form inputs, `focus:ring-sky-500/50`
   on the inline routine-name field. No glow, no border color change beyond the ring.
@@ -373,22 +369,24 @@ emphasis, a semantic hue at alpha for state). Because the system is shadowless a
 ### Navigation (Header)
 - **Style:** A sticky, `backdrop-blur` bar — `slate-950/70` with `supports-[backdrop-filter]:bg-slate-950/50`
   — over a `slate-800/80` bottom border. Left: a gradient back-chip + "Start Value Calculator"
-  title with the active code name beneath in `[11px] slate-500`. Right: the six event pills.
+  title with the active code name beneath in `[11px] slate-400`. Right: the six event pills.
 - **States:** Active event = its identity chip + inset ring; enabled = `slate-800/60` hover
   `slate-700/80`; disabled = `slate-900/40`, `slate-600`, non-interactive.
-- **Mobile:** Event pills drop their icon and shrink padding (`px-2 sm:px-3`), keeping the
+- **Mobile:** The title collapses to the back-chip alone so all six event pills fit at a 44px hit
+  area (coarse pointers); pills drop their icon and shrink padding (`px-2 sm:px-3`), keeping the
   two-letter abbreviation.
 
 ### Signature: The Start Value Panel
 The product's hero. A `rounded-xl` card with a diagonal `sky-600/15 → slate-900/80 → violet-700/15`
 gradient and an inset `radial-gradient` highlight at 30%/20%. Inside: a mono uppercase
-`tracking-[0.15em]` "START VALUE" eyebrow, then the score at `text-6xl` bold `tabular-nums`,
-gradient-clipped `slate-100 → sky-200`, re-animated (`count-up`, 220ms) on every change, over a
-three-column breakdown of Difficulty / EG bonus / Connection.
+`tracking-[0.15em]` "START VALUE" eyebrow, then the score at `text-6xl` bold `tabular-nums` in
+**solid `slate-100`** (no gradient), which updates instantly and flashes a brief sky highlight
+(`sv-flash`, 240ms) on change, over a three-column breakdown of Difficulty / EG bonus / Connection.
+The panel's background gradient and inset highlight remain; only the number is solid.
 
-> *Planned change:* the number moves to **solid `text-primary` (#f1f5f9)** with **no gradient
-> clip** and **no `count-up`** — it updates instantly, with at most a brief highlight. The panel's
-> gradient/radial wash is unaffected; only the readout changes. See the Overview callout.
+On phones (below `md`) the fixed rail is replaced by a **compact sticky bottom bar** carrying the
+same solid SV readout plus a tiny `D · EG · CV` breakdown, pinned above the safe-area inset so the
+live score stays glanceable without scrolling past the routine.
 
 ### EG Bonus Progress Bar
 The thin fulfilment gauge under each element group in the score breakdown. A `h-1.5`
@@ -410,7 +408,8 @@ The read-only parts of a prescribed compulsory routine (USAG MDP), in two varian
   `+value` shown in the number gutter (emerald when claimed, slate when not).
 
 ### Signature: Routine Row + Badges
-Each routine skill is a row carrying (left→right): a drag handle (six-dot SVG), the **EG stripe**
+Each routine skill is a row carrying (left→right): reorder controls (a desktop-only drag handle
+plus up/down buttons that work under touch and keyboard, 44px on coarse pointers), the **EG stripe**
 (1.5px color bar), the **Difficulty badge** (heat-scale fill, numeric value in mono), the skill
 name (sans) with its code number (mono), and state tags (DISMOUNT in rose, "dropped" in slate).
 Counting skills are full-opacity; dropped skills fall to 60%. The **EG badge**
