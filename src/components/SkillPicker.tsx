@@ -7,8 +7,7 @@ import {
   DIFFICULTY_VALUES,
 } from "../codes/types";
 import { DifficultyBadge, EgBadge } from "./Badges";
-import { ImageZoom } from "./ImageZoom";
-import { resolveSkillImage, skillImageSources } from "../lib/skill-image";
+import { FIG_COP_URL } from "../lib/fig-links";
 import { buildSearchIndex, parseQuery, scoreEntry } from "../lib/skill-search";
 
 interface Props {
@@ -23,7 +22,6 @@ export function SkillPicker({ catalog, isVault, onPick, onClose, onOpenCustom }:
   const [search, setSearch] = useState("");
   const [egFilter, setEgFilter] = useState<ElementGroup | null>(null);
   const [diffFilter, setDiffFilter] = useState<Difficulty | null>(null);
-  const [zoomSkill, setZoomSkill] = useState<Skill | null>(null);
 
   const groups = isVault ? ALL_VAULT_GROUPS : ALL_ELEMENT_GROUPS;
 
@@ -136,7 +134,6 @@ export function SkillPicker({ catalog, isVault, onPick, onClose, onOpenCustom }:
                       key={s.id}
                       skill={s}
                       onPick={onPick}
-                      onZoom={() => setZoomSkill(s)}
                     />
                   ))}
                 </div>
@@ -156,18 +153,10 @@ export function SkillPicker({ catalog, isVault, onPick, onClose, onOpenCustom }:
             + Custom skill
           </button>
           <span className="self-center italic">
-            Click a card to add · click the diagram to zoom.
+            Click a card to add.
           </span>
         </footer>
       </div>
-
-      {zoomSkill && (
-        <ImageZoom
-          skill={zoomSkill}
-          src={resolveSkillImage(zoomSkill)}
-          onClose={() => setZoomSkill(null)}
-        />
-      )}
     </div>
   );
 }
@@ -194,26 +183,13 @@ function FilterChip({
 function SkillCard({
   skill,
   onPick,
-  onZoom,
 }: {
   skill: Skill;
   onPick: (s: Skill) => void;
-  onZoom: () => void;
 }) {
   const value = skill.numericValue ?? DIFFICULTY_VALUES[skill.difficulty];
   return (
     <div className="group flex flex-col rounded-lg border border-slate-800 bg-slate-900/80 hover:border-sky-500/60 hover:bg-slate-800/80 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-sky-900/20 transition-all overflow-hidden">
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onZoom();
-        }}
-        className="block focus:outline-none focus:ring-2 focus:ring-sky-500/50"
-        title="Click to enlarge diagram"
-        aria-label="Zoom diagram"
-      >
-        <DiagramArea skill={skill} />
-      </button>
       <button
         onClick={() => onPick(skill)}
         className="text-left flex-1 flex flex-col"
@@ -230,50 +206,29 @@ function SkillCard({
           {skill.eponym && (
             <p className="text-xs italic text-slate-400 mt-0.5">named after {skill.eponym}</p>
           )}
+          <p className="text-xs text-slate-400 mt-1">
+            Element group {skill.elementGroup} · difficulty{" "}
+            {skill.numericValue === undefined && `${skill.difficulty} `}({value.toFixed(1)})
+          </p>
           {skill.notes && <p className="text-xs text-slate-500 mt-1">{skill.notes}</p>}
         </div>
-        <footer className="px-3 py-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-500 font-mono">
-          <span>value {value.toFixed(1)}</span>
-          <span className="group-hover:text-sky-300 transition-colors">+ add to routine</span>
-        </footer>
       </button>
-    </div>
-  );
-}
-
-function DiagramArea({ skill }: { skill: Skill }) {
-  const sources = skillImageSources(skill);
-  const [sourceIndex, setSourceIndex] = useState(0);
-  const src = sources[sourceIndex];
-  const isPageFallback = src !== undefined && src.startsWith("/images/cop-pages/");
-
-  return (
-    <div className="aspect-[4/3] bg-slate-950 border-b border-slate-800 grid place-items-center relative overflow-hidden group/diagram">
-      {src ? (
-        <>
-          <img
-            src={src}
-            alt={skill.name}
-            loading="lazy"
-            onError={() => setSourceIndex((i) => i + 1)}
-            className="w-full h-full object-contain transition-transform duration-300 group-hover/diagram:scale-105"
-          />
-          {isPageFallback && (
-            <span className="absolute bottom-1 right-1 text-[9px] font-mono text-slate-500 bg-slate-950/80 px-1 rounded">
-              full page
-            </span>
-          )}
-          <span className="absolute inset-0 grid place-items-center bg-black/0 group-hover/diagram:bg-black/40 transition-colors text-transparent group-hover/diagram:text-white text-xs font-medium pointer-events-none">
-            <span className="bg-slate-900/80 backdrop-blur px-2 py-1 rounded border border-white/10">
-              🔍 zoom
-            </span>
-          </span>
-        </>
-      ) : (
-        <span className="text-3xl font-mono font-bold text-slate-800 select-none">
-          {skill.codeIdentificationNumber}
-        </span>
-      )}
+      <footer className="px-3 py-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+        <a
+          href={FIG_COP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-sans text-sky-500/80 hover:text-sky-300 underline underline-offset-2"
+        >
+          Official FIG Code of Points
+        </a>
+        <button
+          onClick={() => onPick(skill)}
+          className="group-hover:text-sky-300 transition-colors"
+        >
+          + add to routine
+        </button>
+      </footer>
     </div>
   );
 }

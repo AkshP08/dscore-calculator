@@ -7,10 +7,8 @@ dist
 # FIG Code of Points PDF (copyrighted; each user supplies their own copy)
 *.pdf
 
-# Generated diagram images — regenerate via `npm run extract-images`
-public/images/cop-pages/
-# Manual per-skill crops are kept in version control:
-!public/images/skills/
+# CoP page renders (local reference only; never deployed) — `npm run extract-images`
+cop-pages-local/
 
 # Env / local tooling
 .env
