@@ -98,22 +98,27 @@ export function RoutineBuilder({
           return (
             <li key={rs.uid}>
               {!isVault && i > 0 && (
-                <div className="ml-7 -my-1 pl-1">
+                <div className="ml-7 -my-1 pl-1 [@media(pointer:coarse)]:my-0">
                   <button
                     onClick={() => toggleConnection(i)}
-                    className={[
-                      "text-[11px] font-mono px-2 py-0.5 rounded transition-colors",
-                      rs.connectedToPrevious
-                        ? "bg-emerald-700/40 text-emerald-200 border border-emerald-600/60"
-                        : "bg-slate-800/60 text-slate-500 border border-slate-700 hover:bg-slate-700 hover:text-slate-300",
-                    ].join(" ")}
+                    aria-pressed={rs.connectedToPrevious}
+                    className="group/conn inline-flex items-center [@media(pointer:coarse)]:min-h-[44px] focus-visible:outline-none"
                     title={
                       rs.connectedToPrevious
                         ? "Connected to previous (click to disconnect)"
                         : "Not connected (click to connect)"
                     }
                   >
-                    {rs.connectedToPrevious ? "↪ connected" : "+ connect"}
+                    <span
+                      className={[
+                        "text-[11px] font-mono px-2 py-0.5 rounded transition-colors group-focus-visible/conn:ring-1 group-focus-visible/conn:ring-sky-500/70",
+                        rs.connectedToPrevious
+                          ? "bg-emerald-700/40 text-emerald-200 border border-emerald-600/60"
+                          : "bg-slate-800/60 text-slate-500 border border-slate-700 group-hover/conn:bg-slate-700 group-hover/conn:text-slate-300",
+                      ].join(" ")}
+                    >
+                      {rs.connectedToPrevious ? "↪ connected" : "+ connect"}
+                    </span>
                   </button>
                 </div>
               )}
@@ -150,20 +155,49 @@ export function RoutineBuilder({
                     : "border-slate-800 bg-slate-900/40 opacity-60",
                 ].join(" ")}
               >
-                <span
-                  className="drag-handle flex items-center text-slate-500 hover:text-slate-300 select-none"
-                  title="Drag to reorder"
-                  aria-label="Drag handle"
-                >
-                  <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
-                    <circle cx="9" cy="6" r="1.4" />
-                    <circle cx="15" cy="6" r="1.4" />
-                    <circle cx="9" cy="12" r="1.4" />
-                    <circle cx="15" cy="12" r="1.4" />
-                    <circle cx="9" cy="18" r="1.4" />
-                    <circle cx="15" cy="18" r="1.4" />
-                  </svg>
-                </span>
+                <div className="flex items-center self-stretch">
+                  {/* Drag is a desktop (fine-pointer) affordance only — it never
+                      fires under touch, so the up/down buttons are the real
+                      reorder path for phones and keyboards. */}
+                  <span
+                    className="drag-handle hidden [@media(pointer:fine)]:flex items-center text-slate-500 hover:text-slate-300 select-none"
+                    title="Drag to reorder"
+                    aria-label="Drag handle"
+                  >
+                    <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
+                      <circle cx="9" cy="6" r="1.4" />
+                      <circle cx="15" cy="6" r="1.4" />
+                      <circle cx="9" cy="12" r="1.4" />
+                      <circle cx="15" cy="12" r="1.4" />
+                      <circle cx="9" cy="18" r="1.4" />
+                      <circle cx="15" cy="18" r="1.4" />
+                    </svg>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => move(i, i - 1)}
+                    disabled={i === 0}
+                    aria-label={`Move ${skill.name} up`}
+                    title="Move up"
+                    className="grid place-items-center rounded text-slate-500 hover:text-slate-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors min-w-[24px] [@media(pointer:coarse)]:min-w-[44px] [@media(pointer:coarse)]:min-h-[44px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500/70"
+                  >
+                    <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M6 15l6-6 6 6" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => move(i, i + 1)}
+                    disabled={i === routine.skills.length - 1}
+                    aria-label={`Move ${skill.name} down`}
+                    title="Move down"
+                    className="grid place-items-center rounded text-slate-500 hover:text-slate-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors min-w-[24px] [@media(pointer:coarse)]:min-w-[44px] [@media(pointer:coarse)]:min-h-[44px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500/70"
+                  >
+                    <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </button>
+                </div>
                 <EgStripe eg={skill.elementGroup} />
                 <DifficultyBadge
                   difficulty={skill.difficulty}
@@ -196,9 +230,9 @@ export function RoutineBuilder({
                 </button>
                 <button
                   onClick={() => remove(i)}
-                  className="p-1 text-slate-500 hover:text-rose-300 transition-colors"
+                  className="grid place-items-center self-stretch rounded text-slate-500 hover:text-rose-300 transition-colors min-w-[28px] [@media(pointer:coarse)]:min-w-[44px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-rose-500/60"
                   title="Remove skill"
-                  aria-label="Remove"
+                  aria-label={`Remove ${skill.name}`}
                 >
                   ✕
                 </button>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { CompulsoryPart, CompulsoryRoutine } from "../codes/types";
+import { MobileScoreBar } from "./ScoreBreakdown";
 
 interface Props {
   routine: CompulsoryRoutine;
@@ -115,6 +116,15 @@ export function CompulsoryRoutineView({ routine }: Props) {
           <span className="font-mono">{maxPossibleSV.toFixed(1)}</span>
         </div>
       </div>
+
+      <MobileScoreBar
+        startValue={liveSV}
+        detail={
+          <span>
+            base {routine.baseStartValue.toFixed(1)} + {bonusTotal.toFixed(1)}
+          </span>
+        }
+      />
     </section>
   );
 }
