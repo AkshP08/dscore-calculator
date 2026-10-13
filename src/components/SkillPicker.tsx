@@ -95,7 +95,9 @@ export function SkillPicker({ catalog, isVault, onPick, onClose, onOpenCustom }:
               <button
                 key={eg}
                 onClick={() => setEgFilter(egFilter === eg ? null : eg)}
-                className={egFilter === eg ? "ring-1 ring-slate-100 rounded" : ""}
+                aria-pressed={egFilter === eg}
+                aria-label={`Filter element group ${eg}`}
+                className={`inline-flex items-center justify-center rounded [@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:min-w-[44px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500/70 ${egFilter === eg ? "ring-1 ring-slate-100" : ""}`}
               >
                 <EgBadge eg={eg} />
               </button>
@@ -173,9 +175,14 @@ function FilterChip({
   return (
     <button
       onClick={onClick}
-      className={`text-xs px-2 py-0.5 rounded font-mono ${active ? "bg-slate-100 text-slate-900" : "bg-slate-800 text-slate-400 hover:bg-slate-700"}`}
+      aria-pressed={active}
+      className="group/fc inline-flex items-center justify-center [@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:min-w-[44px] focus-visible:outline-none"
     >
-      {children}
+      <span
+        className={`text-xs px-2 py-0.5 rounded font-mono transition-colors group-focus-visible/fc:ring-1 group-focus-visible/fc:ring-sky-500/70 ${active ? "bg-slate-100 text-slate-900" : "bg-slate-800 text-slate-400 group-hover/fc:bg-slate-700"}`}
+      >
+        {children}
+      </span>
     </button>
   );
 }

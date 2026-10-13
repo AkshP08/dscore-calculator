@@ -18,8 +18,9 @@ export function Header({ code, event, onSelectEvent, onGoHome }: Props) {
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-4">
         <button
           onClick={onGoHome}
-          className="text-left hover:opacity-80 transition-opacity flex items-center gap-2"
+          className="shrink-0 text-left hover:opacity-80 transition-opacity flex items-center gap-2"
           title="Back to home"
+          aria-label="Back to home"
         >
           <span
             aria-hidden
@@ -27,14 +28,16 @@ export function Header({ code, event, onSelectEvent, onGoHome }: Props) {
           >
             ←
           </span>
-          <div>
+          {/* Collapsed on phones: the wordmark would crowd out 44px event
+              targets at 390px. It stays on desktop and on the Home screen. */}
+          <div className="hidden md:block">
             <h1 className="text-base font-semibold tracking-tight">
               Start Value Calculator
             </h1>
             <p className="text-[11px] text-slate-500">{code.shortName}</p>
           </div>
         </button>
-        <nav className="ml-auto flex gap-1">
+        <nav className="ml-auto flex gap-1 min-w-0 overflow-x-auto">
           {ALL_EVENTS.map((e) => {
             const enabled = code.supportedEvents.includes(e);
             const active = e === event;
@@ -46,7 +49,9 @@ export function Header({ code, event, onSelectEvent, onGoHome }: Props) {
                 onClick={() => enabled && onSelectEvent(e)}
                 title={enabled ? EVENT_NAMES[e] : `${EVENT_NAMES[e]} — coming soon`}
                 className={[
-                  "px-2 sm:px-3 py-1.5 rounded-md text-sm font-mono flex items-center gap-1.5 transition-colors",
+                  "shrink-0 px-2 sm:px-3 py-1.5 rounded-md text-sm font-mono flex items-center justify-center gap-1.5 transition-colors",
+                  "[@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:min-w-[44px]",
+                  "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500/70",
                   active
                     ? `${theme.chip} border ring-1 ring-inset ${theme.ring.replace("hover:", "")}`
                     : enabled

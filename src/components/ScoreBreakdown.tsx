@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
 import type { ScoreBreakdown as SB, Skill, GymEvent } from "../codes/types";
 import { ALL_ELEMENT_GROUPS } from "../codes/types";
 import { EgBadge } from "./Badges";
@@ -150,6 +151,46 @@ export function ScoreBreakdownView({ event, breakdown, catalog }: Props) {
         </div>
       )}
     </aside>
+  );
+}
+
+/**
+ * Compact sticky Start Value bar for phones (below md only). Keeps the live SV
+ * glanceable between turns without scrolling past the whole routine — the
+ * desktop breakdown rail is a fixed column, but on mobile it stacks underneath.
+ * Solid high-contrast number, tabular-nums, no gradient; respects the home-bar
+ * safe-area inset and never covers the last row (main carries matching padding).
+ */
+export function MobileScoreBar({
+  startValue,
+  detail,
+}: {
+  startValue: number;
+  detail?: ReactNode;
+}) {
+  return (
+    <div
+      role="status"
+      aria-label={`Start value ${startValue.toFixed(1)}`}
+      className="md:hidden fixed inset-x-0 bottom-0 z-40 border-t border-slate-800 bg-slate-950/85 backdrop-blur supports-[backdrop-filter]:bg-slate-950/70"
+      style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
+    >
+      <div className="max-w-6xl mx-auto px-4 pt-2 flex items-center justify-between gap-3">
+        <div className="flex items-baseline gap-2.5 min-w-0">
+          <span className="text-[10px] uppercase tracking-[0.15em] text-slate-400 font-mono shrink-0">
+            Start Value
+          </span>
+          <span className="text-3xl font-bold tabular-nums text-slate-100 leading-none">
+            {startValue.toFixed(1)}
+          </span>
+        </div>
+        {detail && (
+          <div className="text-right text-[11px] text-slate-400 font-mono tabular-nums shrink-0 leading-tight">
+            {detail}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 

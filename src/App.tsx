@@ -6,7 +6,7 @@ import { HomePage } from "./components/HomePage";
 import { RoutineBuilder, newRoutineSkill } from "./components/RoutineBuilder";
 import { SkillPicker } from "./components/SkillPicker";
 import { CustomSkillForm } from "./components/CustomSkillForm";
-import { ScoreBreakdownView } from "./components/ScoreBreakdown";
+import { ScoreBreakdownView, MobileScoreBar } from "./components/ScoreBreakdown";
 import { CompulsoryRoutineView } from "./components/CompulsoryRoutineView";
 import { useToast } from "./components/Toast";
 import {
@@ -192,7 +192,7 @@ export default function App() {
         onGoHome={() => setView("home")}
       />
 
-      <main className="max-w-6xl mx-auto px-4 py-6">
+      <main className="max-w-6xl mx-auto px-4 pt-6 pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-6">
         <div className="flex flex-wrap items-center gap-2 mb-5">
           <button
             onClick={handleNew}
@@ -247,16 +247,32 @@ export default function App() {
             return <CompulsoryRoutineView routine={compulsory} />;
           })()
         ) : (
-          <div className="flex flex-col md:flex-row gap-6">
-            <RoutineBuilder
-              routine={draft}
-              catalog={catalog}
-              breakdown={breakdown}
-              onUpdate={setDraft}
-              onOpenPicker={() => setShowPicker(true)}
+          <>
+            <div className="flex flex-col md:flex-row gap-6">
+              <RoutineBuilder
+                routine={draft}
+                catalog={catalog}
+                breakdown={breakdown}
+                onUpdate={setDraft}
+                onOpenPicker={() => setShowPicker(true)}
+              />
+              <ScoreBreakdownView event={event} breakdown={breakdown} catalog={catalog} />
+            </div>
+            <MobileScoreBar
+              startValue={breakdown.startValue}
+              detail={
+                event === "VT" ? (
+                  <span>D {breakdown.difficultyValue.toFixed(1)}</span>
+                ) : (
+                  <span>
+                    D {breakdown.difficultyValue.toFixed(1)} · EG{" "}
+                    {breakdown.elementGroupBonus.toFixed(1)} · CV{" "}
+                    {breakdown.connectionValue.toFixed(1)}
+                  </span>
+                )
+              }
             />
-            <ScoreBreakdownView event={event} breakdown={breakdown} catalog={catalog} />
-          </div>
+          </>
         )}
       </main>
 
